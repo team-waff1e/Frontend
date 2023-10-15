@@ -1,24 +1,24 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root from "./routes/root";
-import Waffle from "./routes/waffles/waffles";
-import Post from "./routes/waffles/posts";
-import Like from "./routes/waffles/like";
-import Unlike from "./routes/waffles/unlike";
-import Comments from "./routes/waffles/comments";
-import Comment from "./routes/waffles/comment";
-import Auth from "./routes/auths/auth";
-import Signup from "./routes/auths/signup";
-import Login from "./routes/auths/login";
-import Logout from "./routes/auths/logout";
-import Nickname from "./routes/auths/nickname";
-import Email from "./routes/auths/email";
-import Users from "./routes/users/users";
-import User from "./routes/users/user";
-import Follow from "./routes/users/follow";
-import Unfollow from "./routes/users/unfollow";
-import CheckPwd from "./routes/users/checkPwd";
+import Root from "./pages/root";
+import Waffle from "./pages/waffles/waffles";
+import Post from "./pages/waffles/posts";
+import Like from "./pages/waffles/like";
+import Unlike from "./pages/waffles/unlike";
+import Comments from "./pages/waffles/comments";
+import Comment from "./pages/waffles/comment";
+import Auth from "./pages/auths/auth";
+import Signup from "./pages/auths/signup";
+import Login from "./pages/auths/login";
+import Logout from "./pages/auths/logout";
+import Nickname from "./pages/auths/nickname";
+import Email from "./pages/auths/email";
+import Users from "./pages/users/users";
+import User from "./pages/users/user";
+import Follow from "./pages/users/follow";
+import Unfollow from "./pages/users/unfollow";
+import CheckPwd from "./pages/users/checkPwd";
 
 const router = createBrowserRouter([
   {
