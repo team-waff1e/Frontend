@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import Waffles from "./pages/waffles";
-import Waffle from "./pages/Waffle";
+import Waffle from "./pages/waffle";
 import Members from "./pages/members";
 import Follows from "./pages/follows";
 import Login from "./pages/login";
-import Signup from "./pages/Signup";
+import Signup from "./pages/signup";
 
 const router = createBrowserRouter([
   {
