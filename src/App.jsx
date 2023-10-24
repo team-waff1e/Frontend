@@ -6,6 +6,7 @@ import Members from "./pages/members";
 import Follows from "./pages/follows";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import styled from "styled-components";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,8 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
 ]);
+
+const Wrapper = styled.div``;
 
 export default function App() {
   return (
