@@ -1,15 +1,24 @@
 import { useCallback, useState } from "react";
-import { Wrapper, Title, Form, Input } from "../components/signup-form";
+import {
+  Wrapper,
+  Title,
+  Form,
+  Input,
+  Switcher,
+} from "../components/signup-form";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [signupInputs, setSignupInputs] = useState({
     email: "",
-    username: "",
-    password: "",
-    passwordConfirm: "",
+    name: "",
+    pwd: "",
+    pwdConfirm: "",
     nickname: "",
   });
-  const { email, username, password, passwordConfirm, nickname } = signupInputs;
+  const { email, name, pwd, pwdConfirm, nickname } = signupInputs;
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -24,13 +33,14 @@ export default function Signup() {
     e.preventDefault();
     if (
       email === "" ||
-      username === "" ||
-      password === "" ||
-      passwordConfirm === "" ||
+      name === "" ||
+      pwd === "" ||
+      pwdConfirm === "" ||
       nickname === ""
     )
       return;
     try {
+      navigate("/waffles");
     } catch (e) {
     } finally {
     }
@@ -49,26 +59,26 @@ export default function Signup() {
         />
         <Input
           onChange={onChange}
-          value={username}
-          name="username"
-          placeholder="username"
+          value={name}
+          name="name"
+          placeholder="name"
           type="text"
           required
         />
         <Input
           onChange={onChange}
-          value={password}
-          name="password"
-          placeholder="password"
-          type="password"
+          value={pwd}
+          name="pwd"
+          placeholder="pwd"
+          type="pwd"
           required
         />
         <Input
           onChange={onChange}
-          value={passwordConfirm}
-          name="passwordConfirm"
-          placeholder="password confirm"
-          type="password"
+          value={pwdConfirm}
+          name="pwdConfirm"
+          placeholder="pwd confirm"
+          type="pwd"
           required
         />
         <Input
@@ -81,6 +91,9 @@ export default function Signup() {
         />
         <Input type="submit" value="Create Account" required />
       </Form>
+      <Switcher>
+        Already have an account? <Link to="/login">Log In &rarr;</Link>
+      </Switcher>
     </Wrapper>
   );
 }

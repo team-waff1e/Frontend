@@ -14,6 +14,19 @@ const router = createBrowserRouter([
     // => 로그인, 회원가입 페이지로 연결되는 링크만 넣으면 됨
     path: "",
     element: <Home />,
+    children: [
+      {
+        // 로그인 페이지
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        // 회원가입 페이지
+        // => 이메일, 닉네임 중복 체크 기능
+        path: "/signup",
+        element: <Signup />,
+      },
+    ],
   },
   {
     // 로그인 인증 부분 추가 필요
@@ -69,17 +82,6 @@ const router = createBrowserRouter([
         element: <Follows />,
       },
     ],
-  },
-  {
-    // 로그인 페이지
-    path: "/auth/login",
-    element: <Login />,
-  },
-  {
-    // 회원가입 페이지
-    // => 이메일, 닉네임 중복 체크 기능
-    path: "/auth/signup",
-    element: <Signup />,
   },
 ]);
 
