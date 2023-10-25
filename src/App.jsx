@@ -6,7 +6,7 @@ import Members from "./pages/members";
 import Follows from "./pages/follows";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
 const router = createBrowserRouter([
   {
@@ -83,11 +83,34 @@ const router = createBrowserRouter([
   },
 ]);
 
-const Wrapper = styled.div``;
+const GlobalStyles = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html {
+    min-height: 100%;
+  }
+  body {
+    min-height: 100%;
+  }
+  #root {
+    min-height: 100%;
+    margin-bottom: 100px;
+  }
+`;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+`;
 
 export default function App() {
   return (
     <Wrapper>
+      <GlobalStyles />
       <RouterProvider router={router} />
     </Wrapper>
   );
