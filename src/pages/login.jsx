@@ -6,7 +6,6 @@ import {
   Input,
   Switcher,
 } from "../components/signup-form";
-import { async } from "q";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
