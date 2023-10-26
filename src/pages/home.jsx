@@ -1,7 +1,18 @@
-export default function Home() {
+import React from "react";
+import Sidenav from "../components/Sidenav.jsx";
+import Waffles from "./waffles.jsx";
+
+function Home() {
   return (
-    <>
-      <h1>Home</h1>
-    </>
+    <div >
+      <div  >
+        <Sidenav />
+      </div>
+      <div  >
+        <Waffles />
+      </div>
+    </div>
   );
 }
+
+export default Home;
