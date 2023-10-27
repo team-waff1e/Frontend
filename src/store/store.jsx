@@ -3,7 +3,7 @@ import signupInputsSlice from "./signupInputsSlice";
 
 const store = configureStore({
   reducer: {
-    test: signupInputsSlice.reducer,
+    signupInputs: signupInputsSlice.reducer,
   },
 });
 

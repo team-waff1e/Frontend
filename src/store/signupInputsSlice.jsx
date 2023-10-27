@@ -14,7 +14,8 @@ const signupInputsSlice = createSlice({
       for (const s in state) {
         if (s === action.payload.name) {
           state.s = action.payload.value;
-          console.log(state.s);
+          console.log(action.payload);
+          console.log(s);
         }
       }
     },

@@ -7,6 +7,8 @@ import Follows from "./pages/follows";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import styled, { createGlobalStyle } from "styled-components";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -111,9 +113,11 @@ const Wrapper = styled.div`
 
 export default function App() {
   return (
-    <Wrapper>
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </Wrapper>
+    <Provider store={store}>
+      <Wrapper>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </Wrapper>
+    </Provider>
   );
 }

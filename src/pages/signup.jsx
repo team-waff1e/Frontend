@@ -8,9 +8,13 @@ import {
 } from "../components/signup-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import store from "../store/store";
+import { storeInputs } from "../store/signupInputsSlice";
 
 export default function Signup() {
   const navigate = useNavigate();
+  /*
   const [signupInputs, setSignupInputs] = useState({
     email: "",
     name: "",
@@ -29,6 +33,15 @@ export default function Signup() {
     },
     [setSignupInputs]
   );
+  */
+  const dispatch = useDispatch();
+  const { email, name, pwd, pwdConfirm, nickname } = useSelector((state) => {
+    return state.signupInputs;
+  });
+  const onChange = useCallback((e) => {
+    dispatch(storeInputs({ name: e.target.name, value: e.target.value }));
+  }, []);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (
