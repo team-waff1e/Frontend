@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const signupErrorSlice = createSlice({
   name: "signupErrorSlice",
   initialState: {
-    errMessage: "default",
+    errMessage: "",
   },
   reducers: {
     setErrMessage: (state, action) => {

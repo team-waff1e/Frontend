@@ -27,7 +27,7 @@ export default function Home() {
     if (!isClicked) {
       navigate("/");
     }
-  }, []);
+  });
   return (
     <Wrapper>
       <Section>

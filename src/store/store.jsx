@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signupInputsSlice from "./signupInputsSlice";
+import userInfoSlice from "./userInfoSlice";
 
 const store = configureStore({
   reducer: {
-    signupInputs: signupInputsSlice.reducer,
+    userInfo: userInfoSlice.reducer,
   },
 });
 
