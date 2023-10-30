@@ -6,17 +6,19 @@ import {
   Input,
   Switcher,
 } from "../components/signup-form";
-import { async } from "q";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import LoginReq from "../apis/loginReq";
+import { useDispatch } from "react-redux";
+import { storeUserInfo } from "../store/userInfoSlice";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [loginInputs, setLoginInputs] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = loginInputs;
+  const dispatch = useDispatch();
+
+  // 입력값 상태관리
+  const [loginInputs, setLoginInputs] = useState({ email: "", pwd: "" });
+  const { email, pwd } = loginInputs;
   const onChang = useCallback(
     (e) => {
       const { name, value } = e.target;
@@ -27,13 +29,32 @@ export default function Login() {
     },
     [setLoginInputs]
   );
+
+  // 로그인 요청
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (email === "" || password === "") return;
+    // 유효성 검사(공백)
+    if (email === "" || pwd === "") return;
     try {
-      navigate("/waffles");
+      // 회원 정보 확인
+      const LoginInfo = await LoginReq({ email, pwd });
+      const { errorCode } = await LoginInfo;
+      if (errorCode === 200) {
+        // 성공시
+        console.log("success");
+        // 유저 정보 저장, state 값 초기화 후 이동
+        // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
+        const { email, name, pwd, nickname } = await LoginInfo;
+        dispatch(storeUserInfo({ email, name, pwd, nickname }));
+        setLoginInputs({ email: "", pwd: "" });
+        navigate("/waffles");
+      } else if (errorCode !== 200) {
+        alert("Check your login informations");
+        console.log("failed");
+        return;
+      }
     } catch (e) {
-    } finally {
+      console.log(e);
     }
   };
   return (
@@ -50,13 +71,13 @@ export default function Login() {
         />
         <Input
           onChange={onChang}
-          value={password}
-          name="password"
+          value={pwd}
+          name="pwd"
           placeholder="password"
           type="password"
           required
         />
-        <Input type="submit" value="Log In" required />
+        <Input type="submit" value="Log In" />
       </Form>
       <Switcher>
         Don't have an account? <Link to="/signup">Create one &rarr;</Link>

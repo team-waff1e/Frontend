@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import signupErrorSlice from "./signupErrorSlice";
+import userInfoSlice from "./userInfoSlice";
 
 const store = configureStore({
   reducer: {
-    signupError: signupErrorSlice.reducer,
+    userInfo: userInfoSlice.reducer,
   },
 });
 
