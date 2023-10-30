@@ -13,10 +13,23 @@ import { storeUserInfo } from "../store/userInfoSlice";
 import AddMember from "../apis/addMember";
 import CkEmail from "../apis/ckEmail";
 import CkNickname from "../apis/ckNickname";
+import { debounce } from "lodash";
 
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Debounce
+  const onDebounce = useCallback(
+    debounce(async (params) => {
+      try {
+        console.log("debounced!");
+      } catch {
+        console.log("no debounce!");
+      }
+    }, 500),
+    []
+  );
 
   // 입력값 상태 관리
   const [signupInputs, setSignupInputs] = useState({
@@ -34,8 +47,11 @@ export default function Signup() {
         ...prev,
         [name]: value,
       }));
+      if (name === "email" || name === "nickname") {
+        onDebounce();
+      }
     },
-    [setSignupInputs]
+    [setSignupInputs, onDebounce]
   );
 
   // 회원가입 요청

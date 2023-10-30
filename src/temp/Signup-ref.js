@@ -99,7 +99,6 @@ function ErrorMsg() {
     return true;
   }
   function CheckLength({ type, element }) {
-    console.log(type, element);
     const criteria = {
       emailID: [0, 99],
       domain: [0, 99],
@@ -137,7 +136,6 @@ function ErrorMsg() {
     for (let i = 0; i < Object.keys(signupInputs).length; i++) {
       const key = Object.keys(signupInputs)[i];
       const value = signupInputs[key];
-      console.log(key, value);
       if (!CheckBlank(key, value)) {
         retainData({
           emailID,
