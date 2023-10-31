@@ -5,27 +5,74 @@ import {
   Form,
   Input,
   Switcher,
+  ErrorMsg,
+  Valid,
+  Invalid,
 } from "../components/signup-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeUserInfo } from "../store/userInfoSlice";
 import AddMember from "../apis/addMember";
-import CkEmail from "../apis/ckEmail";
-import CkNickname from "../apis/ckNickname";
+import CkDuplication from "../apis/ckDuplication";
 import { debounce } from "lodash";
+import {
+  setEmailVM,
+  setIsEmailV,
+  setIsNnmV,
+  setNnmVM,
+} from "../store/signupValidSlice";
 
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
+    return state.signupValid;
+  });
 
   // Debounce
+  function SetErrorMsg({ errorCode, name, value }) {
+    if (errorCode === 200) {
+      if (name === "email") {
+        dispatch(setIsEmailV(true));
+        if (value) {
+          dispatch(setEmailVM("This email is not being used."));
+        } else {
+          dispatch(setEmailVM(""));
+        }
+      } else if (name === "nickname") {
+        dispatch(setIsNnmV(true));
+        if (value) {
+          dispatch(setNnmVM("This nickname is not being used."));
+        } else {
+          dispatch(setNnmVM(""));
+        }
+      }
+    } else if (errorCode !== 200) {
+      if (name === "email") {
+        dispatch(setIsEmailV(false));
+        if (value) {
+          dispatch(setEmailVM("This email is already in use."));
+        } else {
+          dispatch(setEmailVM(""));
+        }
+      } else if (name === "nickname") {
+        dispatch(setIsNnmV(false));
+        if (value) {
+          dispatch(setNnmVM("This nickname is already in use."));
+        } else {
+          dispatch(setNnmVM(""));
+        }
+      }
+    }
+  }
   const onDebounce = useCallback(
-    debounce(async (params) => {
+    debounce(async ({ name, value }) => {
       try {
-        console.log("debounced!");
-      } catch {
-        console.log("no debounce!");
+        const errorCode = await CkDuplication({ name, value });
+        SetErrorMsg({ errorCode, name, value });
+      } catch (e) {
+        console.log(e);
       }
     }, 500),
     []
@@ -48,7 +95,7 @@ export default function Signup() {
         [name]: value,
       }));
       if (name === "email" || name === "nickname") {
-        onDebounce();
+        onDebounce({ name, value });
       }
     },
     [setSignupInputs, onDebounce]
@@ -57,8 +104,14 @@ export default function Signup() {
   // 회원가입 요청
   const onSubmit = async (e) => {
     e.preventDefault();
-    const errorCode1 = await CkEmail({ email });
-    const errorCode2 = await CkNickname({ nickname });
+    const emailError = await CkDuplication({
+      name: "email",
+      value: email,
+    });
+    const nicknameError = await CkDuplication({
+      name: "nickname",
+      value: nickname,
+    });
     // 유효성 검사(공백, pwd 확인, 이메일&닉네임 중복)
     if (
       email === "" ||
@@ -67,14 +120,14 @@ export default function Signup() {
       pwdConfirm === "" ||
       nickname === "" ||
       pwd !== pwdConfirm ||
-      errorCode1 !== 200 ||
-      errorCode2 !== 200
+      emailError !== 200 ||
+      nicknameError !== 200
     ) {
       return;
     }
     try {
-      const errorCode3 = await AddMember({ email, name, pwd, nickname });
-      if (errorCode3 === 201) {
+      const errorCode = await AddMember({ email, name, pwd, nickname });
+      if (errorCode === 201) {
         // 성공시
         console.log("success");
         // 유저 정보 저장, state 값들 초기화 후 이동
@@ -88,7 +141,7 @@ export default function Signup() {
           nickname: "",
         });
         navigate("/waffles");
-      } else if (errorCode3 !== 201) {
+      } else if (errorCode !== 201) {
         alert("Check your signup form");
         console.log("failed");
         return;
@@ -109,6 +162,11 @@ export default function Signup() {
           type="text"
           required
         />
+        {emailVM ? (
+          <ErrorMsg>
+            {isEmailV ? <Valid>{emailVM}</Valid> : <Invalid>{emailVM}</Invalid>}
+          </ErrorMsg>
+        ) : null}
         <Input
           onChange={onChange}
           value={name}
@@ -141,6 +199,11 @@ export default function Signup() {
           type="text"
           required
         />
+        {nnmVM ? (
+          <ErrorMsg>
+            {isNnmV ? <Valid>{nnmVM}</Valid> : <Invalid>{nnmVM}</Invalid>}
+          </ErrorMsg>
+        ) : null}
         <Input type="submit" value="Create Account" />
       </Form>
       <Switcher>

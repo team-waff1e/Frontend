@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   width: 420px;
   min-width: 420px;
   margin-top: 5%;
-  padding: 50px 0px;
+  padding: 50px 0px 10px 0px;
 `;
 
 export const Title = styled.h1`
@@ -21,19 +21,19 @@ export const Form = styled.form`
   flex-direction: column;
   width: 100%;
   margin-top: 20px;
-  margin-bottom: 10px;
-  gap: 20px;
 `;
 
 export const Input = styled.input`
   font-size: 16px;
   width: 100%;
   padding: 10px 20px;
+  margin: 10px 0px 5px 0px;
   border: 1px solid #f0cb8c;
   border-radius: 50px;
   &[type="submit"] {
     background-color: #f0cb8c;
     color: #732c00;
+    margin-top: 20px;
     cursor: pointer;
     &:hover {
       opacity: 0.8;
@@ -42,8 +42,25 @@ export const Input = styled.input`
 `;
 
 export const Switcher = styled.span`
-  margin-top: 20px;
+  margin-top: 10px;
   a {
     color: #1d9bf0;
   }
+`;
+
+export const ErrorMsg = styled.div`
+  display: block flow;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 20px;
+`;
+
+export const Valid = styled.p`
+  color: blue;
+  margin: 0;
+`;
+
+export const Invalid = styled.p`
+  color: red;
+  margin: 0;
 `;
