@@ -56,11 +56,11 @@ export const ErrorMsg = styled.div`
 `;
 
 export const Valid = styled.p`
-  color: blue;
+  color: #00aaff;
   margin: 0;
 `;
 
 export const Invalid = styled.p`
-  color: red;
+  color: #dc143c;
   margin: 0;
 `;

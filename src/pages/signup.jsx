@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   Wrapper,
   Title,
@@ -16,6 +16,7 @@ import { storeUserInfo } from "../store/userInfoSlice";
 import AddMember from "../apis/addMember";
 import CkDuplication from "../apis/ckDuplication";
 import { debounce } from "lodash";
+import SetErrorMsg from "../components/setErrorMsg";
 import {
   setEmailVM,
   setIsEmailV,
@@ -31,51 +32,24 @@ export default function Signup() {
   });
 
   // Debounce
-  function SetErrorMsg({ errorCode, name, value }) {
-    if (errorCode === 200) {
-      if (name === "email") {
-        dispatch(setIsEmailV(true));
-        if (value) {
-          dispatch(setEmailVM("This email is not being used."));
-        } else {
-          dispatch(setEmailVM(""));
+  const onDebounce = useMemo(
+    () =>
+      debounce(async ({ name, value }) => {
+        try {
+          const errorCode = await CkDuplication({ name, value });
+          const { isValid, msg } = SetErrorMsg({ errorCode, name, value });
+          if (name === "email") {
+            dispatch(setIsEmailV(isValid));
+            dispatch(setEmailVM(msg));
+          } else if (name === "nickname") {
+            dispatch(setIsNnmV(isValid));
+            dispatch(setNnmVM(msg));
+          }
+        } catch (e) {
+          console.log(e);
         }
-      } else if (name === "nickname") {
-        dispatch(setIsNnmV(true));
-        if (value) {
-          dispatch(setNnmVM("This nickname is not being used."));
-        } else {
-          dispatch(setNnmVM(""));
-        }
-      }
-    } else if (errorCode !== 200) {
-      if (name === "email") {
-        dispatch(setIsEmailV(false));
-        if (value) {
-          dispatch(setEmailVM("This email is already in use."));
-        } else {
-          dispatch(setEmailVM(""));
-        }
-      } else if (name === "nickname") {
-        dispatch(setIsNnmV(false));
-        if (value) {
-          dispatch(setNnmVM("This nickname is already in use."));
-        } else {
-          dispatch(setNnmVM(""));
-        }
-      }
-    }
-  }
-  const onDebounce = useCallback(
-    debounce(async ({ name, value }) => {
-      try {
-        const errorCode = await CkDuplication({ name, value });
-        SetErrorMsg({ errorCode, name, value });
-      } catch (e) {
-        console.log(e);
-      }
-    }, 500),
-    []
+      }, 500),
+    [dispatch]
   );
 
   // 입력값 상태 관리
