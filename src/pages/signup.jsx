@@ -18,6 +18,7 @@ import CkDuplication from "../apis/ckDuplication";
 import { debounce } from "lodash";
 import SetErrorMsg from "../components/setErrorMsg";
 import {
+  clearSignupV,
   setEmailVM,
   setIsEmailV,
   setIsNnmV,
@@ -27,11 +28,11 @@ import {
 export default function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Debounce
   const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
     return state.signupValid;
   });
-
-  // Debounce
   const onDebounce = useMemo(
     () =>
       debounce(async ({ name, value }) => {
@@ -114,6 +115,7 @@ export default function Signup() {
           pwdConfirm: "",
           nickname: "",
         });
+        dispatch(clearSignupV());
         navigate("/waffles");
       } else if (errorCode !== 201) {
         alert("Check your signup form");

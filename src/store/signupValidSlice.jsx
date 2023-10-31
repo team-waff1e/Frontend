@@ -23,9 +23,15 @@ const signupValidSlice = createSlice({
     setIsNnmV: (state, action) => {
       state.isNnmV = action.payload;
     },
+    clearSignupV: (state, action) => {
+      state.emailVM = "";
+      state.isEmailV = false;
+      state.nnmVM = "";
+      state.isNnmV = false;
+    },
   },
 });
 
 export default signupValidSlice;
-export const { setEmailVM, setIsEmailV, setNnmVM, setIsNnmV } =
+export const { setEmailVM, setIsEmailV, setNnmVM, setIsNnmV, clearSignupV } =
   signupValidSlice.actions;
