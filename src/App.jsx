@@ -110,10 +110,10 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   html {
-    min-height: 100%;
+    height: 100vh;
   }
   body {
-    min-height: 100%;
+    height: 100%;
   }
   #root {
     min-height: 100%;

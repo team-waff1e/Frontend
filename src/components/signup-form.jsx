@@ -4,10 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   width: 420px;
-  min-width: 420px;
-  margin-top: 5%;
   padding: 50px 0px 10px 0px;
 `;
 

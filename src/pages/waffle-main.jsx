@@ -1,15 +1,21 @@
 import { Outlet } from "react-router-dom";
-import Sidenav from "../components/Sidenav";
+import SideNav from "../components/side-nav";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 80%;
+`;
 
 export default function WaffleMain() {
   return (
-    <div>
+    <Wrapper>
       <div className="sidenav">
-        <Sidenav />
+        <SideNav />
       </div>
       <div>
         <Outlet />
       </div>
-    </div>
+    </Wrapper>
   );
 }
