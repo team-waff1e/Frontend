@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import Waffles from "./pages/waffles";
 import Waffle from "./pages/waffle";
-import Members from "./pages/members";
 import Follows from "./pages/follows";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
@@ -13,6 +12,7 @@ import ProtectedRoute from "./components/protected-route";
 import Layout from "./components/layout";
 import Member from "./pages/member";
 import WaffleMain from "./pages/waffle-main";
+import MemberMain from "./pages/member-main";
 
 const router = createBrowserRouter([
   {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
         path: "/members",
         element: (
           <ProtectedRoute>
-            <Members />
+            <MemberMain />
           </ProtectedRoute>
         ),
         children: [
@@ -110,7 +110,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   html {
-    height: 100vh;
+    height: 100%;
   }
   body {
     height: 100%;

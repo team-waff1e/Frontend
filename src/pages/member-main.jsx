@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
-export default function Members() {
+export default function MemberMain() {
   return (
     <div>
-      <h1>Members</h1>
+      <h1>MemberMain</h1>
       <Outlet />
     </div>
   );

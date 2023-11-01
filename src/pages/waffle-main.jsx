@@ -4,18 +4,15 @@ import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
-  width: 80%;
+  justify-content: center;
+  width: 100%;
 `;
 
 export default function WaffleMain() {
   return (
     <Wrapper>
-      <div className="sidenav">
-        <SideNav />
-      </div>
-      <div>
-        <Outlet />
-      </div>
+      <SideNav />
+      <Outlet />
     </Wrapper>
   );
 }
