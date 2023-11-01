@@ -8,5 +8,6 @@ export default async function UpdataFollower({ email, name, pwd, nickname }) {
     follower,
     following,
   });
+
   return response.data.errorCode;
 }
