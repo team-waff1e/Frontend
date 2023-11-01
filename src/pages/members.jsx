@@ -1,6 +1,7 @@
 import { useState } from "react";
 import UserProfile from "../components/userProfile";
 
+
 export default function Members() {
   const [loggedInUser, setLoggedInUser] = useState({
     id: 1,
@@ -14,7 +15,7 @@ export default function Members() {
   });
 
   const [profileUser, setProfileUser] = useState({
-    id: 2,
+    id: 1,
     email: "email2",
     name: "name2",
     nickname: "nick2",
@@ -67,6 +68,7 @@ export default function Members() {
         isFollowing={isFollowing}
         profileUser={profileUser}
       />
+
     </div>
   );
 }

@@ -6,6 +6,7 @@ import signupInputsSlice from "./signupInputsSlice";
 import loginInputsSlice from "./loginInputsSlice";
 import userSlice from "./userSlice";
 import postsSlice from "./postsSlice";
+import userEditSlice from "./userEditSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ const store = configureStore({
     signupInputs: signupInputsSlice.reducer,
     signupValid: signupValidSlice.reducer,
     user: userSlice.reducer,
+    userEdit : userEditSlice.reducer,
     userInfo: userInfoSlice.reducer,
   },
 });

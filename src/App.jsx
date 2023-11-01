@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/protected-route";
 import Layout from "./components/layout";
 import Member from "./pages/member";
 import WaffleMain from "./pages/waffle-main";
+import EditProfile from "./pages/editprofile";
 
 const router = createBrowserRouter([
   {
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
         path: "/members",
         element: (
           <ProtectedRoute>
-            <Members />
+            <Member />
           </ProtectedRoute>
         ),
         children: [
@@ -87,15 +88,15 @@ const router = createBrowserRouter([
             //   팔로우/언팔로우 버튼 추가
             // => 두 컴포넌트 공통으로 팔로우/언팔로우 목록을 확인할 수 있는 버튼 필요
             path: "/members/{member.id}",
-            element: <Member />,
+            element: <Members />,
           },
           {
             // 팔로우 정보 조회
             // => 해당 사용자의 팔로워/팔로잉 정보를 모두 출력
             //   본인 페이지라면, 언팔로우 버튼이 출력되도록 설정
             // => 표시된 사용자의 프로필로 이동할 수 있도록 링크
-            path: "/members/{member.id}/follows",
-            element: <Follows />,
+            path: "/members/{member.id}/editprofile",
+            element: <EditProfile />,
           },
         ],
       },

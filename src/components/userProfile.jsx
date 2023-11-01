@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function UserProfile({
   user,
   loggedInUser,
@@ -24,7 +26,9 @@ export default function UserProfile({
           </div>
           <div className="rounded-pill">
             {loggedInUser.id === profileUser.id ? (
-              <button>Edit Profile</button>
+              <Link to="/members/{member.id}/editprofile">
+                Edit Profile
+              </Link>
             ) : (
               <button onClick={() => onFollowClick(profileUser)}>
                 {isFollowing ? "Unfollow" : "Follow"}
