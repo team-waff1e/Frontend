@@ -70,6 +70,7 @@ export default function Login() {
           name="email"
           placeholder="email"
           type="text"
+          autoComplete="email"
           required
         />
         <Input
@@ -78,6 +79,7 @@ export default function Login() {
           name="pwd"
           placeholder="password"
           type="password"
+          autoComplete="current-password"
           required
         />
         <Input type="submit" value="Log In" />

@@ -8,6 +8,8 @@ import {
   BtnSection,
   Window,
 } from "./modal-form";
+import { useDispatch } from "react-redux";
+import { setIsClicked } from "../store/homeClickSlice";
 
 export default function Modal({
   texts = ["Are you sure?"],
@@ -19,10 +21,14 @@ export default function Modal({
   link2 = "/",
 }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onClick = (e) => {
     const { name } = e.target;
     if (name === "btn1") {
       navigate(link1);
+      if (link1 === "/") {
+        dispatch(setIsClicked(false));
+      }
     } else if (name === "btn2") {
       navigate(link2);
     }
@@ -31,8 +37,8 @@ export default function Modal({
     <Backdrop>
       <Window>
         <TextSection>
-          {texts.map((text) => (
-            <Text>{text}</Text>
+          {texts.map((text, idx) => (
+            <Text key={idx}>{text}</Text>
           ))}
         </TextSection>
         <BtnSection>

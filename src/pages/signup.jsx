@@ -22,7 +22,6 @@ import {
   setNnmVM,
 } from "../store/signupValidSlice";
 import Modal from "../components/modal";
-import { setIsClicked } from "../store/homeClickSlice";
 import {
   clearSignupInputs,
   setEmail,
@@ -150,8 +149,8 @@ export default function Signup() {
         // state 값들 초기화 후 홈으로 이동(유저 정보 저장은 로그인을 해야함)
         // 회원가입 성공시 로그인 안내 모달을 띄워줌
         // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
-        dispatch(clearSignupInputs());
         dispatch(clearSignupV());
+        dispatch(clearSignupInputs());
         setIsModal(true);
       } else if (errorCode !== 201) {
         alert("Check your signup form");
@@ -160,8 +159,6 @@ export default function Signup() {
       }
     } catch (e) {
       console.log(e);
-    } finally {
-      dispatch(setIsClicked(false));
     }
   };
   return (

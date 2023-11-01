@@ -12,23 +12,18 @@ const signupInputsSlice = createSlice({
   reducers: {
     setEmail: (state, action) => {
       state.email = action.payload;
-      console.log(action);
     },
     setName: (state, action) => {
       state.name = action.payload;
-      console.log(action);
     },
     setPwd: (state, action) => {
       state.pwd = action.payload;
-      console.log(action);
     },
     setPwdConfirm: (state, action) => {
       state.pwdConfirm = action.payload;
-      console.log(action);
     },
     setNickname: (state, action) => {
       state.nickname = action.payload;
-      console.log(action);
     },
     clearSignupInputs: (state, action) => {
       state.email = "";
