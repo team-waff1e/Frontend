@@ -23,6 +23,14 @@ import {
 } from "../store/signupValidSlice";
 import Modal from "../components/modal";
 import { setIsClicked } from "../store/homeClickSlice";
+import {
+  clearSignupInputs,
+  setEmail,
+  setName,
+  setNickname,
+  setPwd,
+  setPwdConfirm,
+} from "../store/signupInputsSlice";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -84,26 +92,27 @@ export default function Signup() {
   );
 
   // 입력값 상태 관리
-  const [signupInputs, setSignupInputs] = useState({
-    email: "",
-    name: "",
-    pwd: "",
-    pwdConfirm: "",
-    nickname: "",
+  const { email, name, pwd, pwdConfirm, nickname } = useSelector((state) => {
+    return state.signupInputs;
   });
-  const { email, name, pwd, pwdConfirm, nickname } = signupInputs;
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setSignupInputs((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-      if (name === "email" || name === "nickname") {
+      if (name === "email") {
+        dispatch(setEmail(value));
+        onDebounce({ name, value });
+      } else if (name === "name") {
+        dispatch(setName(value));
+      } else if (name === "pwd") {
+        dispatch(setPwd(value));
+      } else if (name === "pwdConfirm") {
+        dispatch(setPwdConfirm(value));
+      } else if (name === "nickname") {
+        dispatch(setNickname(value));
         onDebounce({ name, value });
       }
     },
-    [setSignupInputs, onDebounce]
+    [dispatch, onDebounce]
   );
 
   // 모달
@@ -141,13 +150,7 @@ export default function Signup() {
         // state 값들 초기화 후 홈으로 이동(유저 정보 저장은 로그인을 해야함)
         // 회원가입 성공시 로그인 안내 모달을 띄워줌
         // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
-        setSignupInputs({
-          email: "",
-          name: "",
-          pwd: "",
-          pwdConfirm: "",
-          nickname: "",
-        });
+        dispatch(clearSignupInputs());
         dispatch(clearSignupV());
         setIsModal(true);
       } else if (errorCode !== 201) {

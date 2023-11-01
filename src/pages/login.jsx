@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {
   Wrapper,
   Title,
@@ -9,25 +9,28 @@ import {
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import LoginReq from "../apis/login-req";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { storeUserInfo } from "../store/userInfoSlice";
+import { clearLoginInputs, setEmail, setPwd } from "../store/loginInputsSlice";
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // 입력값 상태관리
-  const [loginInputs, setLoginInputs] = useState({ email: "", pwd: "" });
-  const { email, pwd } = loginInputs;
+  const { email, pwd } = useSelector((state) => {
+    return state.loginInputs;
+  });
   const onChang = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setLoginInputs((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      if (name === "email") {
+        dispatch(setEmail(value));
+      } else if (name === "pwd") {
+        dispatch(setPwd(value));
+      }
     },
-    [setLoginInputs]
+    [dispatch]
   );
 
   // 로그인 요청
@@ -46,7 +49,7 @@ export default function Login() {
         // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
         const { email, name, pwd, nickname } = await LoginInfo;
         dispatch(storeUserInfo({ email, name, pwd, nickname }));
-        setLoginInputs({ email: "", pwd: "" });
+        dispatch(clearLoginInputs());
         navigate("/waffles");
       } else if (errorCode !== 200) {
         alert("Check your login informations");
