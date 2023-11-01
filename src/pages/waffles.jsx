@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Sidenav from "../components/Sidenav.jsx";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addPost } from "../store/postsSlice";
@@ -31,9 +30,6 @@ export default function Waffles() {
         <p>
           <Link to="/">홈으로</Link>
         </p>
-      </div>
-      <div className="sidenav">
-        <Sidenav />
       </div>
       <div className="waffles">
         <div>
