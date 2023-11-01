@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import Modal from "./modal";
 
 export default function ProtectedRoute({ children }) {
   // 로그인 성공한 유저의 정보를 Store에서 받아옴(이 방식은 새로고침 시 로그아웃)
@@ -10,8 +11,17 @@ export default function ProtectedRoute({ children }) {
   });
   // 로그인 한 유저가 아니라면, 홈페이지로 라우팅
   if (email === "") {
-    alert("you can't see other's profile without login.\nplease log in first.");
-    return <Navigate to="/waffles" />;
+    return (
+      <Modal
+        texts={[
+          "you can't see other's profile without login.",
+          "please log in first.",
+        ]}
+        btnContent1="OK"
+        link1="/waffles"
+        isBtn2={false}
+      />
+    );
   }
   return children;
 }

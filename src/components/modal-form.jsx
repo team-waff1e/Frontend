@@ -18,8 +18,8 @@ export const Backdrop = styled.div`
 export const Window = styled.div`
   display: flex;
   flex-direction: column;
-  width: 350px;
-  height: 200px;
+  min-width: 350px;
+  min-height: 200px;
   background-color: white;
   border-radius: 20px;
 `;
