@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const signupValidSlice = createSlice({
   name: "signupValidSlice",
   initialState: {
-    // VM: validation message
     emailVM: "",
     isEmailV: false,
-    // nnm: nickname
     nnmVM: "",
     isNnmV: false,
+    // VM: validation message
+    // nnm: nickname
   },
   reducers: {
     setEmailVM: (state, action) => {

@@ -8,7 +8,7 @@ import {
 } from "../components/signup-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import LoginReq from "../apis/loginReq";
+import LoginReq from "../apis/login-req";
 import { useDispatch } from "react-redux";
 import { storeUserInfo } from "../store/userInfoSlice";
 

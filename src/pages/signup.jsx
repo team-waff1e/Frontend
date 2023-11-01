@@ -13,10 +13,9 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { storeUserInfo } from "../store/userInfoSlice";
-import AddMember from "../apis/addMember";
-import CkDuplication from "../apis/ckDuplication";
+import AddMember from "../apis/add-member";
+import CkDuplication from "../apis/ck-duplication";
 import { debounce } from "lodash";
-import SetErrorMsg from "../components/setErrorMsg";
 import {
   clearSignupV,
   setEmailVM,
@@ -30,6 +29,38 @@ export default function Signup() {
   const dispatch = useDispatch();
 
   // Debounce
+  function SetErrorMsg({ errorCode, name, value }) {
+    if (errorCode === 200) {
+      if (name === "email") {
+        if (value) {
+          return { isValid: true, msg: "This email is not being used." };
+        } else {
+          return { isValid: true, msg: "" };
+        }
+      } else if (name === "nickname") {
+        if (value) {
+          return { isValid: true, msg: "This nickname is not being used." };
+        } else {
+          return { isValid: true, msg: "" };
+        }
+      }
+    } else if (errorCode !== 200) {
+      if (name === "email") {
+        if (value) {
+          return { isValid: false, msg: "This email is already in use." };
+        } else {
+          return { isValid: false, msg: "" };
+        }
+      } else if (name === "nickname") {
+        if (value) {
+          return { isValid: false, msg: "This nickname is already in use" };
+        } else {
+          return { isValid: false, msg: "" };
+        }
+      }
+    }
+    return;
+  }
   const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
     return state.signupValid;
   });
