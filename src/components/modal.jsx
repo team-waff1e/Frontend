@@ -10,7 +10,9 @@ import {
 } from "./modal-form";
 
 export default function Modal({
-  text = "Are you sure?",
+  texts = ["Are you sure?"],
+  isBtn1 = true,
+  isBtn2 = true,
   btnContent1 = "Confirm",
   btnContent2 = "Cancel",
   link1 = "/",
@@ -29,15 +31,21 @@ export default function Modal({
     <Backdrop>
       <Window>
         <TextSection>
-          <Text>{text}</Text>
+          {texts.map((text) => (
+            <Text>{text}</Text>
+          ))}
         </TextSection>
         <BtnSection>
-          <Btn1 onClick={onClick} name="btn1">
-            {btnContent1}
-          </Btn1>
-          <Btn2 onClick={onClick} name="btn2">
-            {btnContent2}
-          </Btn2>
+          {isBtn1 ? (
+            <Btn1 onClick={onClick} name="btn1">
+              {btnContent1}
+            </Btn1>
+          ) : null}
+          {isBtn2 ? (
+            <Btn2 onClick={onClick} name="btn2">
+              {btnContent2}
+            </Btn2>
+          ) : null}
         </BtnSection>
       </Window>
     </Backdrop>

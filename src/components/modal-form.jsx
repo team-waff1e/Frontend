@@ -18,8 +18,8 @@ export const Backdrop = styled.div`
 export const Window = styled.div`
   display: flex;
   flex-direction: column;
-  min-width: 350px;
-  min-height: 200px;
+  width: 350px;
+  height: 200px;
   background-color: white;
   border-radius: 20px;
 `;
@@ -27,11 +27,14 @@ export const Window = styled.div`
 export const TextSection = styled.div`
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0px 20px;
 `;
 
 export const Text = styled.p`
+  margin: 0px;
   color: #732c00;
 `;
 
@@ -45,7 +48,7 @@ export const BtnSection = styled.div`
 export const Btn1 = styled.button`
   border: none;
   border-radius: 20px;
-  padding: 5px 20px;
+  padding: 10px 30px;
   background-color: #f0cb8c;
   color: #732c00;
 `;
@@ -53,7 +56,7 @@ export const Btn1 = styled.button`
 export const Btn2 = styled.button`
   border: 2px #f0cb8c solid;
   border-radius: 20px;
-  padding: 5px 20px;
+  padding: 10px 30px;
   background-color: white;
   color: #732c00;
 `;

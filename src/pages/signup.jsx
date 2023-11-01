@@ -9,10 +9,8 @@ import {
   Valid,
   Invalid,
 } from "../components/signup-form";
-import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { storeUserInfo } from "../store/userInfoSlice";
 import AddMember from "../apis/add-member";
 import CkDuplication from "../apis/ck-duplication";
 import { debounce } from "lodash";
@@ -23,12 +21,16 @@ import {
   setIsNnmV,
   setNnmVM,
 } from "../store/signupValidSlice";
+import { setIsClicked } from "../store/homeClickSlice";
+import Modal from "../components/modal";
 
 export default function Signup() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   // Debounce
+  const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
+    return state.signupValid;
+  });
   function SetErrorMsg({ errorCode, name, value }) {
     if (errorCode === 200) {
       if (name === "email") {
@@ -61,9 +63,6 @@ export default function Signup() {
     }
     return;
   }
-  const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
-    return state.signupValid;
-  });
   const onDebounce = useMemo(
     () =>
       debounce(async ({ name, value }) => {
@@ -107,6 +106,9 @@ export default function Signup() {
     [setSignupInputs, onDebounce]
   );
 
+  // 모달
+  const [isModal, setIsModal] = useState(false);
+
   // 회원가입 요청
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -136,9 +138,9 @@ export default function Signup() {
       if (errorCode === 201) {
         // 성공시
         console.log("success");
-        // 유저 정보 저장, state 값들 초기화 후 이동
+        // state 값들 초기화 후 홈으로 이동(유저 정보 저장은 로그인을 해야함)
+        // 회원가입 성공시 로그인 안내 모달을 띄워줌
         // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
-        dispatch(storeUserInfo({ email, name, pwd, nickname }));
         setSignupInputs({
           email: "",
           name: "",
@@ -147,7 +149,8 @@ export default function Signup() {
           nickname: "",
         });
         dispatch(clearSignupV());
-        navigate("/waffles");
+        dispatch(setIsClicked(false));
+        setIsModal(true);
       } else if (errorCode !== 201) {
         alert("Check your signup form");
         console.log("failed");
@@ -159,6 +162,13 @@ export default function Signup() {
   };
   return (
     <Wrapper>
+      {isModal ? (
+        <Modal
+          texts={["Your account have successfully created.", "Please log in."]}
+          link1="/"
+          isBtn2={false}
+        />
+      ) : null}
       <Title>Signup to Waffle!</Title>
       <Form onSubmit={onSubmit}>
         <Input

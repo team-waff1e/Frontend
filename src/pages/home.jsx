@@ -9,9 +9,11 @@ import {
 } from "./../components/home-form";
 import { Switcher } from "../components/signup-form";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsClicked } from "../store/homeClickSlice";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // 로그인 전/후 버튼 표시
   const { email } = useSelector((state) => {
@@ -19,14 +21,16 @@ export default function Home() {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // 화면 전환 기능
-  const [isClicked, setIsClicked] = useState(false);
+  const { isClicked } = useSelector((state) => {
+    return state.homeClick;
+  });
   const onClick = (e) => {
     const { name, value } = e.target;
     if (value) {
-      setIsClicked(true);
+      dispatch(setIsClicked(true));
       navigate(`/${name}`);
     } else {
-      setIsClicked(false);
+      dispatch(setIsClicked(false));
       navigate("/");
     }
   };
