@@ -12,6 +12,7 @@ import store from "./store/store";
 import ProtectedRoute from "./components/protected-route";
 import Layout from "./components/layout";
 import Member from "./pages/member";
+import WaffleMain from "./pages/waffle-main";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
       {
         // 로그인 인증 부분 추가 필요
         path: "/waffles",
+        element: <WaffleMain />,
         children: [
           {
             // 로그인 이후 모든 게시물 출력할 페이지
