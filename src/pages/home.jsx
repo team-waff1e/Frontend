@@ -48,6 +48,9 @@ export default function Home() {
       navigate("/");
     }
   }, [isClicked, navigate]);
+  useEffect(() => {
+    dispatch(setIsClicked(false));
+  }, [dispatch]);
   return (
     <Wrapper>
       <Section>

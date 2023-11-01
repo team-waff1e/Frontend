@@ -21,8 +21,8 @@ import {
   setIsNnmV,
   setNnmVM,
 } from "../store/signupValidSlice";
-import { setIsClicked } from "../store/homeClickSlice";
 import Modal from "../components/modal";
+import { setIsClicked } from "../store/homeClickSlice";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -149,7 +149,6 @@ export default function Signup() {
           nickname: "",
         });
         dispatch(clearSignupV());
-        dispatch(setIsClicked(false));
         setIsModal(true);
       } else if (errorCode !== 201) {
         alert("Check your signup form");
@@ -158,6 +157,8 @@ export default function Signup() {
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      dispatch(setIsClicked(false));
     }
   };
   return (

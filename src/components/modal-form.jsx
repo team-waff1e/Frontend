@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div``;
-
 export const Backdrop = styled.div`
   z-index: 1;
   display: flex;

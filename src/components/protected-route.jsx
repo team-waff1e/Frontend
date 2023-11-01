@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
 import Modal from "./modal";
 
 export default function ProtectedRoute({ children }) {
