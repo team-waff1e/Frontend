@@ -52,6 +52,7 @@ export default function EditProfile() {
 
   const onSubmit = useCallback((e) => {
     e.preventDefault()
+    
     dispatch(storeUserInfo({
       email : editEmail,
       name : editName,
