@@ -3,8 +3,8 @@ import SideNav from "../components/side-nav";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
   width: 100%;
 `;
 

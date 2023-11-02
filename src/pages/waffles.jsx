@@ -1,45 +1,25 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addPost } from "../store/postsSlice";
 import styled from "styled-components";
+import Posting from "../components/posting";
+import WaffleList from "../components/waffle-list";
 
 const Wrapper = styled.div`
-  width: 80%;
-  min-height: 100%;
+  grid-column: 2/3;
 `;
 
+const Container = styled.div`
+  width: 600px;
+`;
+
+// login 안된 유저의 경우 포스팅 컴포넌트 대신 로그인 요청 메세지를 띄워 줄 것.
+// 참고 => store userInfo에 로그인 여부를 저장하도록 했음.
 export default function Waffles() {
-  const { posts } = useSelector((state) => {
-    return state.posts;
-  });
-  const dispatch = useDispatch();
-
-  const handleAddPost = () => {
-    dispatch(
-      addPost({
-        user: "New User",
-        postContent: "This is a new post",
-        likes: 0,
-        timestamp: "1d",
-      })
-    );
-  };
-
   return (
     <Wrapper>
-      <div className="waffles">
-        <div>
-          {posts.map((post) => (
-            <div key={post.id}>
-              <h2>{post.user}</h2>
-              <p>{post.postContent}</p>
-              <p>Likes: {post.likes}</p>
-              <p>Timestamp: {post.timestamp}</p>
-            </div>
-          ))}
-        </div>
-        <button onClick={handleAddPost}>새로운 게시물 추가</button>
-      </div>
+      <Container>
+        <Posting />
+        <WaffleList />
+      </Container>
     </Wrapper>
   );
 }

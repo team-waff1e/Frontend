@@ -109,20 +109,22 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
   }
-  html {
-    height: 100%;
+  html, body, #root {
+    min-height: 100vh;
   }
-  body {
-    height: 100%;
+  ::-webkit-scrollbar {
+    width: 10px;
   }
-  #root {
-    min-height: 100%;
-    margin-bottom: 100px;
+  ::-webkit-scrollbar-thumb {
+    background-color: #f0cb8c;
+    border-radius: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: rgba(255, 240, 199, 0.7);
   }
 `;
 
 const Wrapper = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
 `;

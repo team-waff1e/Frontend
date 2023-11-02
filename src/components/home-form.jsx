@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  min-height: 100vh;
 `;
 
 export const Section = styled.div`
