@@ -3,32 +3,32 @@ import { createSlice } from "@reduxjs/toolkit";
 const userEditSlice = createSlice({
     name : "userEditSlice",
     initialState : {
-        email : "",
-        name : "",
-        pwd : "",
-        pwdConfirm : "",
-        nickname : "",
+        editEmail : "",
+        editName : "",
+        editPwd : "",
+        editPwdConfirm : "",
+        editNickname : "",
     },
     reducers:{
         setEmail: (state, action) => {
-            state.email = action.payload;
+            state.editEmail = action.payload;
         },
         setName: (state, action) => {
-            state.name = action.payload;
+            state.editName = action.payload;
         },
         setPwd: (state, action) => {
-            state.pwd = action.payload;
+            state.editPwd = action.payload;
         },
         setPwdConfirm: (state, action) => {
-            state.pwdConfirm = action.payload;
+            state.editPwdConfirm = action.payload;
         },
         setNickname: (state, action) => {
-            state.nickname = action.payload;
+            state.editNickname = action.payload;
         },
         clearEdits: (state, action) => {
-            state.name = "";
-            state.pwd = "";
-            state.nickname = "";
+            state.editName = "";
+            state.editPwd = "";
+            state.editNickname = "";
         }
     }
 });

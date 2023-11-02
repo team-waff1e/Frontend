@@ -10,38 +10,57 @@ import {
 import { Link } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setEmail, setName, setNickname, setPwd, setPwdConfirm } from "../store/userEditSlice";
+import { storeUserInfo } from "../store/userInfoSlice";
 
 
 
 export default function EditProfile() {
   const dispatch = useDispatch();
+  const { email, name, nickname } = useSelector((state) => {
+    return state.userInfo;
+  })
+  
   function LoadUser (){
-    const { email, name, nickname } = useSelector((state) => {
-      return state.userInfo;
-    })
     dispatch(setEmail(email))
     dispatch(setName(name))
     dispatch(setNickname(nickname))
   }
-  const { email, name, nickname, pwd, pwdConfirm } = useSelector((state) => {
+  
+  
+  
+  const { editEmail, editName, editNickname, editPwd, editPwdConfirm } = useSelector((state) => {
     return state.userEdit;
   })
+
   useEffect(()=>{
       LoadUser()
   }, [])
+  
   const onChange = useCallback((e) => {
     const { name, value } = e.target;
     if (name === "name") {
       dispatch(setName(value))
-    } else if (nickname === "nickname") {
+    } else if (name === "nickname") {
       dispatch(setNickname(value))
-    } else if (pwd === "pwd") {
+    } else if (name === "pwd") {
       dispatch(setPwd(value))
-    } else if (pwdConfirm === "pwdConfirm") {
+    } else if (name === "pwdConfirm") {
       dispatch(setPwdConfirm(value))
     }
   } , [])
-  
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault()
+    dispatch(storeUserInfo({
+      email : editEmail,
+      name : editName,
+      pwd : editPwd,
+      nickname : editNickname,
+    })) 
+  })
+
+
   return (
     <Wrapper>
       
@@ -49,7 +68,7 @@ export default function EditProfile() {
       <Form>
         email : 
         <Input
-          value={email}
+          value={editEmail}
           name="email"
           placeholder="Email"
           type="text"
@@ -58,7 +77,7 @@ export default function EditProfile() {
         name : 
         <Input
           onChange={onChange}
-          value={name}
+          value={editName}
           name="name"
           placeholder="Name"
           type="text"
@@ -67,7 +86,7 @@ export default function EditProfile() {
         nickname : 
         <Input
           onChange={onChange}
-          value={nickname}
+          value={editNickname}
           name="nickname"
           placeholder="nickname"
           type="text"
@@ -76,7 +95,7 @@ export default function EditProfile() {
         pwd :
         <Input
           onChange={onChange}
-          value={pwd}
+          value={editPwd}
           name="pwd"
           placeholder="New Password"
           type="password"
@@ -85,7 +104,7 @@ export default function EditProfile() {
         pwd confirm :
         <Input
           onChange={onChange}
-          value={pwdConfirm}
+          value={editPwdConfirm}
           name="pwdConfirm"
           placeholder="Confirm Password"
           type="password"
