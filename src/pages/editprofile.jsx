@@ -10,14 +10,14 @@ import {
 import { Link } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setName, setNickname, setPwd, setPwdConfirm } from "../store/userEditSlice";
+import { clearEdits, setEmail, setName, setNickname, setPwd, setPwdConfirm } from "../store/userEditSlice";
 import { storeUserInfo } from "../store/userInfoSlice";
 
 
 
 export default function EditProfile() {
   const dispatch = useDispatch();
-  const { email, name, nickname } = useSelector((state) => {
+  const { email, name, nickname, } = useSelector((state) => {
     return state.userInfo;
   })
   
@@ -50,15 +50,51 @@ export default function EditProfile() {
     }
   } , [])
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault()
-    
-    dispatch(storeUserInfo({
-      email : editEmail,
-      name : editName,
-      pwd : editPwd,
-      nickname : editNickname,
-    })) 
+  const onSubmit = useCallback( async (e) => {
+    e.preventDefault();
+    const editNicknameError = await CkDuplication({
+      name: "nickname",
+      value: nickname,
+    });
+
+    // 유효성 검사(공백, pwd 확인, 이메일&닉네임 중복)
+    if (
+      editEmail === "" ||
+      editName === "" ||
+      editPwd === "" ||
+      editPwdConfirm === "" ||
+      nickname === "" ||
+      editPwd !== editPwdConfirm ||
+      editNicknameError !== 200
+    ) {
+      return;
+    }
+
+    try {
+      const errorCode = await EditMember({ editEmail, editName, editPwd, editNickname });
+      if (errorCode === 201) {
+        // 성공시
+        console.log("success");
+        dispatch(storeUserInfo({
+          email : editEmail,
+          name : editName,
+          pwd : editPwd,
+          pwdConfirm : editPwdConfirm,
+          nickname : editNickname,
+        })) 
+        // state 값들 초기화 후 홈으로 이동(유저 정보 저장은 로그인을 해야함)
+        // 회원가입 성공시 로그인 안내 모달을 띄워줌
+        // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
+        dispatch(clearEdits());
+        setIsModal(true);
+      } else if (errorCode !== 201) {
+        alert("Check your information form");
+        console.log("failed");
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+    }
   })
 
 
@@ -66,7 +102,7 @@ export default function EditProfile() {
     <Wrapper>
       
       <Title>Change Personal Information</Title>
-      <Form>
+      <Form onSubmit ={onSubmit}>
         email : 
         <Input
           value={editEmail}
