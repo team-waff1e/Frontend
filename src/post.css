@@ -1,0 +1,18 @@
+.createpost {
+    display: flex;
+    flex-direction: row;
+  }
+  .postlist {
+    display: flex;
+    flex-direction: column; 
+  }
+  
+  .postlist > div {
+    border: 1px solid #ccc; 
+    padding: 16px;
+    margin-bottom: 16px; 
+  }
+  
+  .postlist p {
+    margin: 0; 
+  }
