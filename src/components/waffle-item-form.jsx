@@ -85,7 +85,7 @@ export const Image = styled.div`
   height: 100%;
   border-radius: 20px;
   background-color: gray;
-  background-image: url(${(props) => props.image});
+  background-image: url(${(props) => props.src});
   background-size: contain;
   cursor: pointer;
   &:hover {

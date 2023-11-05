@@ -68,7 +68,7 @@ export default function WaffleItem({
         <Text onClick={toDetail}>{content}</Text>
         <Images onClick={toDetail}>
           {images.map((image, idx) => (
-            <Image onClick={toDetail} key={idx} image={image} />
+            <Image onClick={toDetail} key={idx} src={image} />
           ))}
         </Images>
         <Footer onClick={toDetail}>

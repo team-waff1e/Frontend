@@ -13,7 +13,9 @@ import {
   Wrapper,
 } from "./create-post-form";
 import addPost from "../apis/add-post";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWaffles } from "../store/wafflesSlice";
+import fetchPosts from "../apis/fetch-posts";
 
 // 포스팅 기능 구현
 // image 버튼 눌러서 이미지 업로드 가능하도록 구현
@@ -23,14 +25,16 @@ import { useSelector } from "react-redux";
 // 공개 범위 기능 구현
 // emoji 버튼 눌러서 토글창 열리도록하고, 이모티콘 열 수 있도록 구현 (트위터 이모지 api 필요)
 export default function CreatePost() {
-  const textareaRef = useRef();
+  const dispatch = useDispatch();
+
+  // variables
+  const [content, setContent] = useState("");
   const { memberId } = useSelector((state) => {
     return state.user;
   });
 
-  const [content, setContent] = useState("");
-
   // textarea 높이 자동 조절
+  const textareaRef = useRef();
   const resizeTextarea = (e) => {
     setContent(e.currentTarget.value);
     if (textareaRef && textareaRef.current) {
@@ -43,14 +47,19 @@ export default function CreatePost() {
   // Submit 로직
   const postSubmit = async (e) => {
     e.preventDefault();
-    console.log(1);
     if (content === "" || isNaN(memberId)) return;
     try {
       const { errorCode, errorMsg } = await addPost({ memberId, content });
       console.log();
       if (errorCode === 201) {
+        // 성공시
         console.log("posting succeed");
+        // 변수 초기화 및 와플 목록 갱신
         setContent("");
+        const reloadPosts = async () => {
+          dispatch(fetchWaffles(await fetchPosts()));
+        };
+        reloadPosts();
       } else if (errorCode !== 201) {
         console.log(errorCode, "posting error :", errorMsg);
       }

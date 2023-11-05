@@ -27,26 +27,10 @@ export default function SideNav() {
           data-to="/waffles"
           src="https://cdn-icons-png.flaticon.com/512/7606/7606136.png"
         />
-        <Img
-          onClick={onClick}
-          data-to="/waffles"
-          src="https://static.vecteezy.com/system/resources/thumbnails/001/504/972/small/search-icon-free-vector.jpg"
-        />
-        <Img
-          onClick={onClick}
-          data-to="/waffles"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5jhkxwkNqni1JexiCUd4_PfQec-nxCEeNw&usqp=CAU"
-        />
-        <Img
-          onClick={onClick}
-          data-to="/waffles"
-          src="https://cdn.icon-icons.com/icons2/1993/PNG/512/alarm_alert_attention_bell_clock_notification_ring_icon_123203.png"
-        />
-        <Img
-          onClick={onClick}
-          data-to="/waffles"
-          src="https://cdn.icon-icons.com/icons2/2348/PNG/512/settings_preferences_icon_142972.png"
-        />
+        <Img src="https://static.vecteezy.com/system/resources/thumbnails/001/504/972/small/search-icon-free-vector.jpg" />
+        <Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5jhkxwkNqni1JexiCUd4_PfQec-nxCEeNw&usqp=CAU" />
+        <Img src="https://cdn.icon-icons.com/icons2/1993/PNG/512/alarm_alert_attention_bell_clock_notification_ring_icon_123203.png" />
+        <Img src="https://cdn.icon-icons.com/icons2/2348/PNG/512/settings_preferences_icon_142972.png" />
         <Img
           onClick={onClick}
           data-to="/members/{member.id}"

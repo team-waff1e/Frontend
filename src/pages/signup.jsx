@@ -191,6 +191,7 @@ export default function Signup() {
           name="name"
           placeholder="name"
           type="text"
+          autoComplete="username"
           required
         />
         <Input
@@ -199,6 +200,7 @@ export default function Signup() {
           name="pwd"
           placeholder="pwd"
           type="password"
+          autoComplete="new-password"
           required
         />
         <Input
@@ -207,6 +209,7 @@ export default function Signup() {
           name="pwdConfirm"
           placeholder="pwd confirm"
           type="password"
+          autoComplete="new-password"
           required
         />
         <Input
@@ -215,6 +218,7 @@ export default function Signup() {
           name="nickname"
           placeholder="nickname"
           type="text"
+          autoComplete="nickname"
           required
         />
         {nicknameValidMsg ? (
