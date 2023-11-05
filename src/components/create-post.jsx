@@ -47,6 +47,7 @@ export default function CreatePost() {
     if (content === "" || isNaN(memberId)) return;
     try {
       const { errorCode, errorMsg } = await addPost({ memberId, content });
+      console.log();
       if (errorCode === 201) {
         console.log("posting succeed");
         setContent("");
