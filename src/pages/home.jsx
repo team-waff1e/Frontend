@@ -17,7 +17,7 @@ export default function Home() {
   const navigate = useNavigate();
   // 로그인 전/후 버튼 표시
   const { email } = useSelector((state) => {
-    return state.userInfo;
+    return state.user;
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   // 화면 전환 기능
@@ -48,6 +48,11 @@ export default function Home() {
       navigate("/");
     }
   }, [isClicked, navigate]);
+  // 다른 페이지에서 되돌아 왔을 경우 로그인, 회원가입 버튼 띄워주기
+  useEffect(() => {
+    dispatch(setIsClicked(false));
+  }, [dispatch]);
+
   return (
     <Wrapper>
       <Section>

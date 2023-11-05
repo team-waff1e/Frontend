@@ -9,3 +9,5 @@ export const CK_NICKNAME_URL = SIGNUP_URL + "/nickname";
 export const LOGIN_URL = BASE_URL + "/auth/login";
 
 export const LOGOUT_URL = BASE_URL + "/auth/logout";
+
+export const POST_URL = BASE_URL + "/waffles";

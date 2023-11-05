@@ -1,21 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userInfoSlice from "./userInfoSlice";
-import signupValidSlice from "./signupValidSlice";
-import homeClickSlice from "./homeClickSlice";
-import signupInputsSlice from "./signupInputsSlice";
-import loginInputsSlice from "./loginInputsSlice";
 import userSlice from "./userSlice";
-import postsSlice from "./postsSlice";
+import homeClickSlice from "./homeClickSlice";
+import wafflesSlice from "./wafflesSlice";
 
 const store = configureStore({
   reducer: {
     homeClick: homeClickSlice.reducer,
-    loginInputs: loginInputsSlice.reducer,
-    posts: postsSlice.reducer,
-    signupInputs: signupInputsSlice.reducer,
-    signupValid: signupValidSlice.reducer,
+    waffles: wafflesSlice.reducer,
     user: userSlice.reducer,
-    userInfo: userInfoSlice.reducer,
   },
 });
 

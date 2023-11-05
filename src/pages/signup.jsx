@@ -10,34 +10,21 @@ import {
   Invalid,
 } from "../components/signup-form";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import AddMember from "../apis/add-member";
-import CkDuplication from "../apis/ck-duplication";
 import { debounce } from "lodash";
-import {
-  clearSignupV,
-  setEmailVM,
-  setIsEmailV,
-  setIsNnmV,
-  setNnmVM,
-} from "../store/signupValidSlice";
 import Modal from "../components/modal";
-import {
-  clearSignupInputs,
-  setEmail,
-  setName,
-  setNickname,
-  setPwd,
-  setPwdConfirm,
-} from "../store/signupInputsSlice";
+import CheckDup from "../apis/check-dup";
 
 export default function Signup() {
-  const dispatch = useDispatch();
-
-  // Debounce
-  const { emailVM, isEmailV, nnmVM, isNnmV } = useSelector((state) => {
-    return state.signupValid;
+  // Debounce 메세지 상태 관리
+  const [DupMsg, setDupMsg] = useState({
+    emailValidMsg: "",
+    isEmailValid: false,
+    nicknameValidMsg: "",
+    isNicknameValid: false,
   });
+  const { emailValidMsg, isEmailValid, nicknameValidMsg, isNicknameValid } =
+    DupMsg;
   function SetErrorMsg({ errorCode, name, value }) {
     if (errorCode === 200) {
       if (name === "email") {
@@ -74,60 +61,59 @@ export default function Signup() {
     () =>
       debounce(async ({ name, value }) => {
         try {
-          const errorCode = await CkDuplication({ name, value });
+          const errorCode = await CheckDup({ name, value });
           const { isValid, msg } = SetErrorMsg({ errorCode, name, value });
           if (name === "email") {
-            dispatch(setIsEmailV(isValid));
-            dispatch(setEmailVM(msg));
+            setDupMsg({
+              ...DupMsg,
+              emailValidMsg: msg,
+              isEmailValid: isValid,
+            });
           } else if (name === "nickname") {
-            dispatch(setIsNnmV(isValid));
-            dispatch(setNnmVM(msg));
+            setDupMsg({
+              ...DupMsg,
+              nicknameValidMsg: msg,
+              isNicknameValid: isValid,
+            });
           }
         } catch (e) {
           console.log(e);
         }
       }, 500),
-    [dispatch]
+    [DupMsg]
   );
 
   // 입력값 상태 관리
-  const { email, name, pwd, pwdConfirm, nickname } = useSelector((state) => {
-    return state.signupInputs;
+  const [inputs, setInputs] = useState({
+    email: "",
+    name: "",
+    pwd: "",
+    pwdConfirm: "",
+    nickname: "",
   });
+  const { email, name, pwd, pwdConfirm, nickname } = inputs;
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      if (name === "email") {
-        dispatch(setEmail(value));
-        onDebounce({ name, value });
-      } else if (name === "name") {
-        dispatch(setName(value));
-      } else if (name === "pwd") {
-        dispatch(setPwd(value));
-      } else if (name === "pwdConfirm") {
-        dispatch(setPwdConfirm(value));
-      } else if (name === "nickname") {
-        dispatch(setNickname(value));
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
+      if (name === "email" || name === "nickname") {
         onDebounce({ name, value });
       }
     },
-    [dispatch, onDebounce]
+    [inputs, onDebounce]
   );
 
-  // 모달
+  // 모달 상태 관리
   const [isModal, setIsModal] = useState(false);
 
   // 회원가입 요청
   const onSubmit = async (e) => {
     e.preventDefault();
-    const emailError = await CkDuplication({
-      name: "email",
-      value: email,
-    });
-    const nicknameError = await CkDuplication({
-      name: "nickname",
-      value: nickname,
-    });
+    const emailError = await CheckDup({ name: "email", value: email });
+    const nicknameError = await CheckDup({ name: "nickname", value: nickname });
     // 유효성 검사(공백, pwd 확인, 이메일&닉네임 중복)
     if (
       email === "" ||
@@ -145,22 +131,32 @@ export default function Signup() {
       const errorCode = await AddMember({ email, name, pwd, nickname });
       if (errorCode === 201) {
         // 성공시
-        console.log("success");
-        // state 값들 초기화 후 홈으로 이동(유저 정보 저장은 로그인을 해야함)
-        // 회원가입 성공시 로그인 안내 모달을 띄워줌
-        // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
-        dispatch(clearSignupV());
-        dispatch(clearSignupInputs());
+        console.log("signup succeed");
+        // 사용한 State 초기화, 모달 띄우고 Home으로 navigate
+        setInputs({
+          email: "",
+          name: "",
+          pwd: "",
+          pwdConfirm: "",
+          nickname: "",
+        });
+        setDupMsg({
+          emailValidMsg: "",
+          isEmailValid: false,
+          nicknameValidMsg: "",
+          isNicknameValid: false,
+        });
         setIsModal(true);
       } else if (errorCode !== 201) {
         alert("Check your signup form");
-        console.log("failed");
+        console.log("signup failed");
         return;
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <Wrapper>
       {isModal ? (
@@ -180,9 +176,13 @@ export default function Signup() {
           type="text"
           required
         />
-        {emailVM ? (
+        {emailValidMsg ? (
           <ErrorMsg>
-            {isEmailV ? <Valid>{emailVM}</Valid> : <Invalid>{emailVM}</Invalid>}
+            {isEmailValid ? (
+              <Valid>{emailValidMsg}</Valid>
+            ) : (
+              <Invalid>{emailValidMsg}</Invalid>
+            )}
           </ErrorMsg>
         ) : null}
         <Input
@@ -198,7 +198,7 @@ export default function Signup() {
           value={pwd}
           name="pwd"
           placeholder="pwd"
-          type="pwd"
+          type="password"
           required
         />
         <Input
@@ -206,7 +206,7 @@ export default function Signup() {
           value={pwdConfirm}
           name="pwdConfirm"
           placeholder="pwd confirm"
-          type="pwd"
+          type="password"
           required
         />
         <Input
@@ -217,9 +217,13 @@ export default function Signup() {
           type="text"
           required
         />
-        {nnmVM ? (
+        {nicknameValidMsg ? (
           <ErrorMsg>
-            {isNnmV ? <Valid>{nnmVM}</Valid> : <Invalid>{nnmVM}</Invalid>}
+            {isNicknameValid ? (
+              <Valid>{nicknameValidMsg}</Valid>
+            ) : (
+              <Invalid>{nicknameValidMsg}</Invalid>
+            )}
           </ErrorMsg>
         ) : null}
         <Input type="submit" value="Create Account" />

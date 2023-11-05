@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Posting from "../components/posting";
+import CreatePost from "../components/create-post";
 import WaffleList from "../components/waffle-list";
 
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ export default function Waffles() {
   return (
     <Wrapper>
       <Container>
-        <Posting />
+        <CreatePost />
         <WaffleList />
       </Container>
     </Wrapper>

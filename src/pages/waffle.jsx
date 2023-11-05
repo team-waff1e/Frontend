@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { likePost, unlikePost } from "../store/postsSlice";
+import { likeWaffles, unlikeWaffles } from "../store/wafflesSlice";
 
 // 현재 페이지로 오게되면 axios로 통신하여 현재 waffle의 id를 넘기고,
 // 받아온 데이터를 postSlice 에 저장한다. 이후 해당 정보를 이용해서 화면에 출력.
@@ -14,9 +14,9 @@ function Waffle() {
 
   const handleLike = () => {
     if (post.isLiked) {
-      dispatch(unlikePost(post.id));
+      dispatch(unlikeWaffles(post.id));
     } else {
-      dispatch(likePost(post.id));
+      dispatch(likeWaffles(post.id));
     }
   };
 
