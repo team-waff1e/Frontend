@@ -9,8 +9,6 @@ import {
   Footer,
   Header,
   HeaderBtn,
-  Image,
-  Images,
   MenuBtn,
   Profile,
   ProfileImg,

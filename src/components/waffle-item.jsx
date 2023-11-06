@@ -8,8 +8,6 @@ import {
   FooterInfo,
   FooterItem,
   Header,
-  Image,
-  Images,
   MenuBtn,
   Nickname,
   PostDate,
