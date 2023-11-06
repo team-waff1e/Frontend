@@ -37,6 +37,7 @@ export const Nickname = styled.p`
   cursor: pointer;
   &:hover {
     text-decoration: underline;
+    text-decoration-thickness: 2px;
   }
 `;
 
@@ -84,7 +85,7 @@ export const Image = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  background-color: gray;
+  background-color: #e5e5e5;
   background-image: url(${(props) => props.src});
   background-size: contain;
   cursor: pointer;

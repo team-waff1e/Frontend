@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const wafflesSlice = createSlice({
-  name: "wafflesSlice",
+const commentSlice = createSlice({
+  name: "commentSlice",
   initialState: {
-    posts: [
+    comments: [
       {
         postId: 0,
         content: "",
@@ -13,7 +13,7 @@ const wafflesSlice = createSlice({
         memberId: 0,
       },
     ],
-    selectedPost: {
+    selectedComment: {
       postId: 0,
       content: "",
       createdAt: "",
@@ -33,27 +33,13 @@ const wafflesSlice = createSlice({
       state.selectedPost = action.payload;
     },
     editWaffles: (state, action) => {
-      // 게시물 수정 로직 추가 (백엔드 연동이 필요함)
+      // 댓글 수정
     },
     deleteWaffles: (state, action) => {
-      // 게시물 삭제 로직 추가 (백엔드 연동이 필요함)
-    },
-    likeWaffles: (state, action) => {
-      // 게시물 좋아요 처리 (백엔드 연동이 필요함)
-    },
-    unlikeWaffles: (state, action) => {
-      // 게시물 좋아요 취소 처리 (백엔드 연동이 필요함)
+      // 댓글 삭제
     },
   },
 });
 
-export default wafflesSlice;
-export const {
-  fetchWaffles,
-  addWaffle,
-  selectWaffle,
-  editWaffles,
-  deleteWaffles,
-  likeWaffles,
-  unlikeWaffles,
-} = wafflesSlice.actions;
+export default commentSlice;
+export const {} = commentSlice.actions;

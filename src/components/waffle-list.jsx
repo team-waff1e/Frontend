@@ -21,8 +21,7 @@ export default function PostList() {
   }, [dispatch]);
 
   return (
-    <div className="waffles">
-      <WaffleItem />
+    <div>
       {posts.map((post) => (
         <WaffleItem key={post.postId} {...post} />
       ))}

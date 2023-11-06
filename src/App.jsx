@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             //   수정 시 기존 데이터를 읽어오도록
             // => 연관 댓글 모두 출력
             //   댓글 입력창 필요
-            path: "/waffles/{waffle.id}",
+            path: "/waffles/:waffleId",
             element: <Waffle />,
           },
         ],

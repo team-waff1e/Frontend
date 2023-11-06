@@ -5,6 +5,7 @@ import WaffleList from "../components/waffle-list";
 
 const Wrapper = styled.div`
   grid-column: 2/3;
+  margin: 10px 0px;
 `;
 
 const Container = styled.div`

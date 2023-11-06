@@ -14,8 +14,7 @@ import {
 } from "./create-post-form";
 import addPost from "../apis/add-post";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWaffles } from "../store/wafflesSlice";
-import fetchPosts from "../apis/fetch-posts";
+import { addWaffle } from "../store/wafflesSlice";
 
 // 포스팅 기능 구현
 // image 버튼 눌러서 이미지 업로드 가능하도록 구현
@@ -49,17 +48,16 @@ export default function CreatePost() {
     e.preventDefault();
     if (content === "" || isNaN(memberId)) return;
     try {
-      const { errorCode, errorMsg } = await addPost({ memberId, content });
+      const result = await addPost({ memberId, content });
+      const { errorCode, errorMsg } = await result;
       console.log();
       if (errorCode === 201) {
         // 성공시
         console.log("posting succeed");
-        // 변수 초기화 및 와플 목록 갱신
+        // 변수 초기화 및 와플 목록에 추가
         setContent("");
-        const reloadPosts = async () => {
-          dispatch(fetchWaffles(await fetchPosts()));
-        };
-        reloadPosts();
+        const { instance } = await result;
+        dispatch(addWaffle(instance));
       } else if (errorCode !== 201) {
         console.log(errorCode, "posting error :", errorMsg);
       }
