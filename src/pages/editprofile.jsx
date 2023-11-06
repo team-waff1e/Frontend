@@ -26,37 +26,42 @@ export default function EditProfile() {
     dispatch(setName(name))
     dispatch(setNickname(nickname))
   }
-  
-  
-  
-  const { editEmail, editName, editNickname, editPwd, editPwdConfirm } = useSelector((state) => {
-    return state.userEdit;
-  })
-
   useEffect(()=>{
-      LoadUser()
+    LoadUser()
   }, [])
   
-  const onChange = useCallback((e) => {
-    const { name, value } = e.target;
-    if (name === "name") {
-      dispatch(setName(value))
-    } else if (name === "nickname") {
-      dispatch(setNickname(value))
-    } else if (name === "pwd") {
-      dispatch(setPwd(value))
-    } else if (name === "pwdConfirm") {
-      dispatch(setPwdConfirm(value))
-    }
-  } , [])
+  // 입력값 상태 관리
+  const [inputs, setInputs] = useState({
+    editEmail: "",
+    editName: "",
+    editPwd: "",
+    editPwdConfirm: "",
+    editNickname: "",
+  });
+  const { editEmail, editName, editPwd, editPwdConfirm, editNickname } = inputs;
+  const onChange = useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value,
+      });
+    },
+    [inputs]
+  );
 
-  const onSubmit = useCallback( async (e) => {
+  
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     const editNicknameError = await CkDuplication({
       name: "nickname",
       value: nickname,
     });
-
+    // const editEmailError = await CheckDup({ 
+    //   name: "email", 
+    //   value: email 
+    // });
     // 유효성 검사(공백, pwd 확인, 이메일&닉네임 중복)
     if (
       editEmail === "" ||
@@ -95,7 +100,7 @@ export default function EditProfile() {
     } catch (e) {
       console.log(e);
     }
-  })
+  };
 
 
   return (
