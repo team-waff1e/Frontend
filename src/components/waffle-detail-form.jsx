@@ -78,6 +78,10 @@ export const MenuBtn = styled.img`
   }
 `;
 
+export const ToggleBox = styled.div``;
+
+export const ToggleItem = styled.div``;
+
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;

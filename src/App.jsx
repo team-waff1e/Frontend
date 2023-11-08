@@ -95,9 +95,11 @@ const router = createBrowserRouter([
                 element: <WaffleList />,
               },
               {
+                // api 없음
                 path: "/members/{member.id}/replies",
               },
               {
+                // api 없음
                 path: "/members/{member.id}/likes",
               },
             ],

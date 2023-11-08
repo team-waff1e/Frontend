@@ -1,6 +1,6 @@
 import axios from "axios";
 import { POST_URL } from "../apis/urls";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectWaffle } from "../store/wafflesSlice";
 import {
@@ -27,9 +27,18 @@ import {
 
 export default function WaffleDetail({ waffleId }) {
   const dispatch = useDispatch();
-  const { content, likes, createdAt } = useSelector((state) => {
+  const { content, likes, createdAt, memberId } = useSelector((state) => {
     return state.waffles.selectedPost;
   });
+  const user = useSelector((state) => {
+    return state.user;
+  });
+
+  // 토글기능
+  const [isToggled, setIsToggled] = useState(false);
+  const onToggle = useCallback((e) => {
+    setIsToggled((prev) => !prev);
+  }, []);
 
   useEffect(() => {
     const getWaffle = async () => {
@@ -39,6 +48,7 @@ export default function WaffleDetail({ waffleId }) {
         const { instance } = response.data;
         dispatch(selectWaffle(instance));
       } else if (errorCode !== 200) {
+        console.log(errorCode);
       }
     };
     getWaffle();
@@ -55,7 +65,24 @@ export default function WaffleDetail({ waffleId }) {
           </Title>
           <HeaderBtn>
             <Subscribe>Subscribe</Subscribe>
-            <MenuBtn src="https://www.svgrepo.com/show/124304/three-dots.svg" />
+            <MenuBtn
+              onClick={onToggle}
+              src="https://www.svgrepo.com/show/124304/three-dots.svg"
+            />
+            {isToggled ? (
+              <div>
+                {memberId === user.memberId ? (
+                  <div>
+                    <p>Edit waffle</p>
+                    <p>Delete waffle</p>
+                  </div>
+                ) : (
+                  <div>
+                    <p>Follow Author</p>
+                  </div>
+                )}
+              </div>
+            ) : null}
           </HeaderBtn>
         </Profile>
       </Header>
