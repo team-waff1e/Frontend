@@ -25,10 +25,7 @@ import {
   FooterInfo,
 } from "./waffle-item-form";
 
-export default function WaffleDetail({
-  waffleId,
-  // images = [],
-}) {
+export default function WaffleDetail({ waffleId }) {
   const dispatch = useDispatch();
   const { content, likes, createdAt } = useSelector((state) => {
     return state.waffles.selectedPost;
@@ -36,7 +33,7 @@ export default function WaffleDetail({
 
   useEffect(() => {
     const getWaffle = async () => {
-      const response = await axios.get(POST_URL + `/${waffleId}`, { waffleId });
+      const response = await axios.get(POST_URL + `/${waffleId}`);
       const { errorCode } = response.data;
       if (errorCode === 200) {
         const { instance } = response.data;
@@ -64,14 +61,6 @@ export default function WaffleDetail({
       </Header>
       <Contents>
         <Text>{content}</Text>
-        {/* <Images>
-          <Image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpfLS_zp3nQhrgdGpnm35b4H79-p5nQuBUVO5oOyxphWIEyp1uJZP1W-Q9L5lnjGRkNDE&usqp=CAU" />
-        </Images> */}
-        {/* <Images onClick={toDetail}>
-          {images.map((image, idx) => (
-            <Image onClick={toDetail} key={idx} src={image} />
-          ))}
-        </Images> */}
         <PostDate>{createdAt}</PostDate>
       </Contents>
       <Footer>

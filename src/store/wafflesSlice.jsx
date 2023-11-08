@@ -7,18 +7,20 @@ const wafflesSlice = createSlice({
       {
         postId: 0,
         content: "",
+        likes_count: 0,
+        comment_count: 0,
         createdAt: "",
         updatedAt: "",
-        likes: 0,
         memberId: 0,
       },
     ],
     selectedPost: {
       postId: 0,
       content: "",
+      likes_count: 0,
+      comment_count: 0,
       createdAt: "",
       updatedAt: "",
-      likes: 0,
       memberId: 0,
     },
   },
@@ -32,28 +34,20 @@ const wafflesSlice = createSlice({
     selectWaffle: (state, action) => {
       state.selectedPost = action.payload;
     },
-    editWaffles: (state, action) => {
-      // 게시물 수정 로직 추가 (백엔드 연동이 필요함)
+    editWaffle: (state, action) => {
+      // 게시물 수정
     },
-    deleteWaffles: (state, action) => {
-      // 게시물 삭제 로직 추가 (백엔드 연동이 필요함)
+    deleteWaffle: (state, action) => {
+      // 게시물 삭제
     },
-    likeWaffles: (state, action) => {
-      // 게시물 좋아요 처리 (백엔드 연동이 필요함)
+    likeWaffle: (state, action) => {
+      // 게시물 좋아요
     },
-    unlikeWaffles: (state, action) => {
-      // 게시물 좋아요 취소 처리 (백엔드 연동이 필요함)
+    unlikeWaffle: (state, action) => {
+      // 게시물 좋아요 취소
     },
   },
 });
 
 export default wafflesSlice;
-export const {
-  fetchWaffles,
-  addWaffle,
-  selectWaffle,
-  editWaffles,
-  deleteWaffles,
-  likeWaffles,
-  unlikeWaffles,
-} = wafflesSlice.actions;
+export const { fetchWaffles, addWaffle, selectWaffle } = wafflesSlice.actions;

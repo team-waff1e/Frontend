@@ -13,6 +13,7 @@ import Layout from "./components/layout";
 import Member from "./pages/member";
 import WaffleMain from "./pages/waffle-main";
 import MemberMain from "./pages/member-main";
+import WaffleList from "./components/waffle-list";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,18 @@ const router = createBrowserRouter([
             // => 두 컴포넌트 공통으로 팔로우/언팔로우 목록을 확인할 수 있는 버튼 필요
             path: "/members/{member.id}",
             element: <Member />,
+            children: [
+              {
+                path: "",
+                element: <WaffleList />,
+              },
+              {
+                path: "/members/{member.id}/replies",
+              },
+              {
+                path: "/members/{member.id}/likes",
+              },
+            ],
           },
           {
             // 팔로우 정보 조회

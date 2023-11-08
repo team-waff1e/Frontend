@@ -1,45 +1,45 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const commentSlice = createSlice({
-  name: "commentSlice",
+const commentsSlice = createSlice({
+  name: "commentsSlice",
   initialState: {
     comments: [
       {
-        postId: 0,
+        commentId: 0,
         content: "",
         createdAt: "",
         updatedAt: "",
-        likes: 0,
+        waffleId: 0,
         memberId: 0,
       },
     ],
     selectedComment: {
-      postId: 0,
+      commentId: 0,
       content: "",
       createdAt: "",
       updatedAt: "",
-      likes: 0,
+      waffleId: 0,
       memberId: 0,
     },
   },
   reducers: {
-    fetchWaffles: (state, action) => {
-      state.posts = action.payload;
+    fetchReplys: (state, action) => {
+      state.comments = action.payload;
     },
-    addWaffle: (state, action) => {
-      state.posts.push(action.payload);
+    addReply: (state, action) => {
+      state.comments.push(action.payload);
     },
-    selectWaffle: (state, action) => {
-      state.selectedPost = action.payload;
+    selectReply: (state, action) => {
+      state.selectedComment = action.payload;
     },
-    editWaffles: (state, action) => {
+    editReply: (state, action) => {
       // 댓글 수정
     },
-    deleteWaffles: (state, action) => {
+    deleteReply: (state, action) => {
       // 댓글 삭제
     },
   },
 });
 
-export default commentSlice;
-export const {} = commentSlice.actions;
+export default commentsSlice;
+export const { fetchReplys, addReply, selectReply } = commentsSlice.actions;

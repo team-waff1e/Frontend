@@ -31,14 +31,12 @@ export default function WaffleItem({
   // 설정에 없는 입력값들
   profileImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaMLq7qLjd3tJE_MxbQzSk5BGng5SXecU82AVzphYuloDHl-cVyTYOiLiGRwDF9jZ1Fig&usqp=CAU",
   nickname = "KTaeGyu",
-  // images = [],
-
+  author = "xorb269",
   // 현재 있는 입력값들
-  postId = 0,
-  content = "I want to go home...",
-  createdAt = "Nov 1",
-  likes = 0,
-  memberId = "xorb269",
+  postId,
+  content,
+  createdAt,
+  likes,
 }) {
   const navigate = useNavigate();
   const toDetail = useCallback(
@@ -58,17 +56,12 @@ export default function WaffleItem({
         <Header onClick={toDetail}>
           <Title>
             <Nickname>{nickname}</Nickname>
-            <Author>&#64; {memberId} &#183;</Author>
+            <Author>&#64; {author} &#183;</Author>
             <PostDate>{createdAt}</PostDate>
           </Title>
           <MenuBtn src="https://cdn-icons-png.flaticon.com/512/6059/6059003.png" />
         </Header>
         <Text onClick={toDetail}>{content}</Text>
-        {/* <Images onClick={toDetail}>
-          {images.map((image, idx) => (
-            <Image onClick={toDetail} key={idx} src={image} />
-          ))}
-        </Images> */}
         <Footer onClick={toDetail}>
           <FooterItem>
             <FooterIcon src="https://cdn-icons-png.flaticon.com/512/5219/5219868.png" />
