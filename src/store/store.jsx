@@ -7,6 +7,7 @@ import loginInputsSlice from "./loginInputsSlice";
 import userSlice from "./userSlice";
 import postsSlice from "./postsSlice";
 import userEditSlice from "./userEditSlice";
+import userFollowSlice from "./userFollowSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     user: userSlice.reducer,
     userEdit : userEditSlice.reducer,
     userInfo: userInfoSlice.reducer,
+    userFollow: userFollowSlice.reducer,
   },
 });
 
