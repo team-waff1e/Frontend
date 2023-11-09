@@ -1,0 +1,13 @@
+.homepage {
+    display: flex;
+    flex-direction: row;
+}
+
+.crepost {
+    position: relative;
+    flex: 0.2;
+}
+
+.posts {
+    flex: 0.8;
+}

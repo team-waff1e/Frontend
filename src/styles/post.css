@@ -1,0 +1,23 @@
+.createpost {
+  margin-left: 12px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+}
+
+.postlist {
+  margin-left: 12px;
+  margin-right: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.postlist>div {
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.postlist p {
+  margin: 0;
+}
