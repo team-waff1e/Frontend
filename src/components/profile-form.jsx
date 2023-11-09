@@ -42,16 +42,18 @@ export const ProfileImg = styled.img`
   bottom: 0;
 `;
 
-export const EditBtn = styled.button`
+export const EditBtn = styled(Link)`
   font-size: 14px;
   font-weight: 600;
+  color: black;
+  text-decoration: none;
   background-color: white;
   border: 1px #e5e5e5 solid;
   border-radius: 20px;
   padding: 5px 15px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: #e5e5e5;
   }
 `;
 

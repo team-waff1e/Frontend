@@ -18,7 +18,7 @@ export default function Waffles() {
   return (
     <Wrapper>
       <Container>
-        <CreatePost />
+        <CreatePost type="post" />
         <WaffleList />
       </Container>
     </Wrapper>

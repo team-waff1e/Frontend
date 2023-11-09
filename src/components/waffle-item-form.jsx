@@ -57,15 +57,6 @@ export const PostDate = styled.p`
   }
 `;
 
-export const MenuBtn = styled.img`
-  width: 20x;
-  height: 20px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
 export const Text = styled.p`
   width: 514px;
   font-size: 13px;

@@ -45,4 +45,5 @@ export const CommentBtn = styled.button`
   border-radius: 20px;
   background-color: #f0cb8c;
   color: #732c00;
+  margin-bottom: 10px;
 `;

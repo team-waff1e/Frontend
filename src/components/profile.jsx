@@ -30,10 +30,16 @@ export default function Profile() {
           Joined Nov 6
         </JoinedDate>
         <FollowLinks>
-          <StyledLink to="/">
+          <StyledLink
+            to="/members/{member.id}/follows"
+            state={{ initialState: true }}
+          >
             <FollowNum>1</FollowNum> Following
           </StyledLink>
-          <StyledLink to="/">
+          <StyledLink
+            to="/members/{member.id}/follows"
+            state={{ initialState: false }}
+          >
             <FollowNum>10</FollowNum> Followers
           </StyledLink>
         </FollowLinks>

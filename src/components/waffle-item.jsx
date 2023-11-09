@@ -8,7 +8,6 @@ import {
   FooterInfo,
   FooterItem,
   Header,
-  MenuBtn,
   Nickname,
   PostDate,
   Text,
@@ -16,6 +15,7 @@ import {
   Wrapper,
 } from "./waffle-item-form";
 import { useCallback } from "react";
+import { MenuBtn } from "./waffle-detail-form";
 
 // 나중에 아이콘들 asset으로 빼기 => 다운로드 받아서 넣어놓기
 // 나중에 기본값 넣어논거 제거하고, waffles 페이지에서 map 함수 + prop으로 받아와서 구성하기
@@ -59,7 +59,7 @@ export default function WaffleItem({
             <Author>&#64; {author} &#183;</Author>
             <PostDate>{createdAt}</PostDate>
           </Title>
-          <MenuBtn src="https://cdn-icons-png.flaticon.com/512/6059/6059003.png" />
+          <MenuBtn src="https://www.svgrepo.com/show/124304/three-dots.svg" />
         </Header>
         <Text onClick={toDetail}>{content}</Text>
         <Footer onClick={toDetail}>

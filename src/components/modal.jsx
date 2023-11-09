@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Backdrop,
   Btn1,
@@ -10,6 +10,8 @@ import {
 } from "./modal-form";
 import { useDispatch } from "react-redux";
 import { setIsClicked } from "../store/homeClickSlice";
+import deletePost from "../apis/delete-post";
+import { deleteWaffle } from "../store/wafflesSlice";
 
 export default function Modal({
   texts = ["Are you sure?"],
@@ -19,18 +21,36 @@ export default function Modal({
   btnContent2 = "Cancel",
   link1 = "/",
   link2 = "/",
+  method = "",
+  args = {},
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const onClick = (e) => {
+  const { waffleId } = useParams();
+
+  const onClick = async (e) => {
     const { name } = e.target;
     if (name === "btn1") {
       navigate(link1);
       if (link1 === "/") {
         dispatch(setIsClicked(false));
       }
+      if (method === "deleteWaffle") {
+        console.log(waffleId);
+        const result = await deletePost({ waffleId });
+        const { errorCode, errorMsg } = await result;
+        if (errorCode === 204) {
+          console.log("delete succeed");
+          dispatch(deleteWaffle(waffleId));
+        } else if (errorCode !== 204) {
+          console.log(errorCode, "editing error :", errorMsg);
+        }
+      }
     } else if (name === "btn2") {
       navigate(link2);
+      if (method === "deleteWaffle") {
+        args.setIsModaled(false);
+      }
     }
   };
   return (

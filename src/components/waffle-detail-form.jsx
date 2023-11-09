@@ -49,6 +49,7 @@ export const HeaderBtn = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  position: relative;
 `;
 
 export const Subscribe = styled.button`
@@ -78,9 +79,27 @@ export const MenuBtn = styled.img`
   }
 `;
 
-export const ToggleBox = styled.div``;
+export const ToggleBox = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  border: 2px #f0cb8c solid;
+  border-radius: 10px;
+  overflow: hidden;
+`;
 
-export const ToggleItem = styled.div``;
+export const ToggleItem = styled.button`
+  background-color: white;
+  border: none;
+  padding: 5px;
+  &:hover {
+    background-color: #e5e5e5;
+  }
+`;
 
 export const Contents = styled.div`
   display: flex;

@@ -14,6 +14,7 @@ import Member from "./pages/member";
 import WaffleMain from "./pages/waffle-main";
 import MemberMain from "./pages/member-main";
 import WaffleList from "./components/waffle-list";
+import WaffleEdit from "./pages/waffle-edit";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
             path: "/waffles/:waffleId",
             element: <Waffle />,
           },
+          {
+            path: "/waffles/:waffleId/edit",
+            element: <WaffleEdit />,
+          },
         ],
       },
       {
@@ -93,14 +98,6 @@ const router = createBrowserRouter([
               {
                 path: "",
                 element: <WaffleList />,
-              },
-              {
-                // api 없음
-                path: "/members/{member.id}/replies",
-              },
-              {
-                // api 없음
-                path: "/members/{member.id}/likes",
               },
             ],
           },

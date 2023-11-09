@@ -15,8 +15,6 @@ const Wrapper = styled.div`
 export default function Waffle() {
   const { waffleId } = useParams();
 
-  // variables
-
   return (
     <Wrapper>
       <WaffleDetail waffleId={waffleId} />

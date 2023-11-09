@@ -35,10 +35,19 @@ const wafflesSlice = createSlice({
       state.selectedPost = action.payload;
     },
     editWaffle: (state, action) => {
-      // 게시물 수정
+      state.selectedPost.content = action.payload.content;
+      for (const post of state.posts) {
+        if (post.postId === action.payload.waffleId) {
+          post.content = action.payload.content;
+        }
+      }
     },
     deleteWaffle: (state, action) => {
-      // 게시물 삭제
+      for (const post of state.posts) {
+        if (post.postId === action.payload) {
+          state.posts.pop();
+        }
+      }
     },
     likeWaffle: (state, action) => {
       // 게시물 좋아요
@@ -50,4 +59,10 @@ const wafflesSlice = createSlice({
 });
 
 export default wafflesSlice;
-export const { fetchWaffles, addWaffle, selectWaffle } = wafflesSlice.actions;
+export const {
+  fetchWaffles,
+  addWaffle,
+  selectWaffle,
+  editWaffle,
+  deleteWaffle,
+} = wafflesSlice.actions;
