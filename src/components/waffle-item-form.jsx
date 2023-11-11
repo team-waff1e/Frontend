@@ -88,7 +88,7 @@ export const Image = styled.div`
 export const Footer = styled.div`
   width: 514px;
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   margin-top: 10px;
   padding-right: 10px;
 `;

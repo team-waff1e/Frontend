@@ -11,6 +11,15 @@ export default function CommentItem({
   content,
   createdAt,
 }) {
+  // MenuBtn 눌렀을 때 본인이라면 삭제, 수정 버튼/ 타인이라면 follow 버튼 나오게 하는 로직
+
+  // 1/ Comment 수정 로직
+  // 버튼 클릭시 현재 comment 창이 수정 창으로 변하는 로직
+
+  // 수정 완료 후 axios 통신 및 comment list 수정 하는 로직
+
+  // 2. Comment 삭제 로직 => axios 통신 및 comment list 에서 삭제 하는 로직
+
   return (
     <Wrapper>
       <ProfileImg src={profileImg} />

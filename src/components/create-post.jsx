@@ -54,6 +54,8 @@ export default function CreatePost({ waffleId, type = "" }) {
     }
   };
 
+  // 프로필 이미지 클릭시 프로필 화면으로 Link 되도록 하기
+
   // Submit 로직
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +91,6 @@ export default function CreatePost({ waffleId, type = "" }) {
       console.log(e);
     }
   };
-
   return (
     <Wrapper>
       <Profile>

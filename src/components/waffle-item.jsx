@@ -39,6 +39,8 @@ export default function WaffleItem({
   likes,
 }) {
   const navigate = useNavigate();
+
+  // Waffle detail 페이지로 이동 => 나중에 깔끔하게 수정해보기
   const toDetail = useCallback(
     (e) => {
       if (e.target === e.currentTarget) {
@@ -47,6 +49,11 @@ export default function WaffleItem({
     },
     [navigate, postId]
   );
+
+  // 프로필 이미지 클릭시 프로필 화면으로 Link 되도록 하기
+
+  // 좋아요 클릭시 좋아요 axios post 로직 짜기
+
   return (
     <Wrapper>
       <Profile onClick={toDetail}>
@@ -64,26 +71,8 @@ export default function WaffleItem({
         <Text onClick={toDetail}>{content}</Text>
         <Footer onClick={toDetail}>
           <FooterItem>
-            <FooterIcon src="https://cdn-icons-png.flaticon.com/512/5219/5219868.png" />
-            <FooterInfo>210</FooterInfo>
-          </FooterItem>
-          <FooterItem>
-            <FooterIcon src="https://cdn.icon-icons.com/icons2/510/PNG/512/loop_icon-icons.com_50105.png" />
-            <FooterInfo>1.4k</FooterInfo>
-          </FooterItem>
-          <FooterItem>
             <FooterIcon src="https://png.pngtree.com/element_our/20190529/ourmid/pngtree-flat-heart-shape-image_1199003.jpg" />
             <FooterInfo>{likes}</FooterInfo>
-          </FooterItem>
-          <FooterItem>
-            <FooterIcon src="https://cdn.icon-icons.com/icons2/1898/PNG/512/chart_121012.png" />
-            <FooterInfo>2.7M</FooterInfo>
-          </FooterItem>
-          <FooterItem>
-            <FooterIcon src="https://cdn.icon-icons.com/icons2/3931/PNG/512/bookmarks_icon_250582.png" />
-          </FooterItem>
-          <FooterItem>
-            <FooterIcon src="https://png.pngtree.com/element_our/20190601/ourlarge/pngtree-file-upload-icon-image_1344464.jpg" />
           </FooterItem>
         </Footer>
       </Contents>

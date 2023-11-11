@@ -42,7 +42,8 @@ export default function Login() {
         // 성공시
         console.log("login succeed");
         // 유저 정보 저장, State 값 초기화 후 이동
-        // => 추후 response의 로그인 데이터 기반으로 입력하는 함수로 빼기
+        // => 추후 response의 로그인 데이터 기반(response.user)으로 입력하는 함수로 빼기
+        // => 세션에 로그인 정보(쿠키 저장하는 로직 추가 && 모든 페이지에 새로고침 시 쿠키 기반으로 로그인 유지하는 로직 필요)
         const { memberId, email, name, pwd, nickname } = await LoginInfo;
         dispatch(storeUserInfo({ memberId, email, name, pwd, nickname }));
         setInputs({ email: "", pwd: "" });
