@@ -109,6 +109,32 @@ export default function Signup() {
   // 모달 상태 관리
   const [isModal, setIsModal] = useState(false);
 
+  // 유효성 검사 로직
+  const isPwdValid = ({ pwd, pwdConfirm }) => {
+    const pwdPattern =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,14}$/;
+    if (pwd !== pwdConfirm) {
+      alert("Password and confirm is different");
+      return false;
+    }
+    if (!pwdPattern.test(pwd)) {
+      alert("Check your password form");
+      return false;
+    }
+    return true;
+  };
+  const isInputLengthValid = ({ name, nickname }) => {
+    if (name.length > 50) {
+      alert("Check your name length");
+      return false;
+    }
+    if (nickname.length > 50) {
+      alert("Check your nickname length");
+      return false;
+    }
+    return true;
+  };
+
   // 회원가입 요청
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -121,9 +147,10 @@ export default function Signup() {
       pwd === "" ||
       pwdConfirm === "" ||
       nickname === "" ||
-      pwd !== pwdConfirm ||
       emailError !== 200 ||
-      nicknameError !== 200
+      nicknameError !== 200 ||
+      !isPwdValid({ pwd, pwdConfirm }) ||
+      !isInputLengthValid({ name, nickname })
     ) {
       return;
     }
