@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Modal from "./modal";
+import Modal from "../modal";
 
 export default function ProtectedRoute({ children }) {
   // 로그인 성공한 유저의 정보를 Store에서 받아옴(이 방식은 새로고침 시 로그아웃)

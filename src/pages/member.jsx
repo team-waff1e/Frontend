@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Profile from "../components/profile";
-import MiddleNav from "../components/middle-nav";
 import { Outlet, useParams } from "react-router-dom";
+import Profile from "../components/members/profile";
+import MiddleNav from "../components/navs/middle-nav";
 
 const Wrapper = styled.div`
   margin: 10px 0px;

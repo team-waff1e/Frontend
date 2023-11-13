@@ -1,13 +1,13 @@
-import { Author, Contents } from "./waffle-item-form";
-import { Profile, ProfileImg } from "./create-post-form";
-import { Title } from "./waffle-detail-form";
+import { Author, Contents } from "../../assets/styles/waffle-item-form";
+import { Profile, ProfileImg } from "../../assets/styles/create-post-form";
+import { Title } from "../../assets/styles/waffle-detail-form";
 import {
   Description,
   FollowBtn,
   Header,
   Nickname,
   Wrapper,
-} from "./follow-item-form";
+} from "../../assets/styles/follow-item-form";
 
 export default function FollowItem({ memberId }) {
   // 프로필 이미지 클릭시 프로필 화면으로 Link 되도록 하기

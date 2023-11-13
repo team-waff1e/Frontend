@@ -6,8 +6,8 @@ import {
   Title,
   Form,
   Input,
-} from "./../components/home-form";
-import { Switcher } from "../components/signup-form";
+} from "../assets/styles/home-form";
+import { Switcher } from "../assets/styles/signup-form";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsClicked } from "../store/homeClickSlice";

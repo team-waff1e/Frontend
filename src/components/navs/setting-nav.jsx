@@ -6,7 +6,7 @@ import {
   MenuRightArrowIcon,
   Title,
   Wrapper,
-} from "./member-edit-nav-form";
+} from "../../assets/styles/member-edit-nav-form";
 import { useCallback } from "react";
 
 export default function MemberEditNav() {
@@ -27,16 +27,16 @@ export default function MemberEditNav() {
       <MenuList>
         <MenuItem
           onClick={onClick}
-          data-to={`/members/${memberId}/edit/basicInfo`}
+          data-to={`/members/${memberId}/settings/basicInfo`}
         >
           <MenuContent>Change User Informations</MenuContent>
           <MenuRightArrowIcon src="https://cdn-icons-png.flaticon.com/512/271/271228.png"></MenuRightArrowIcon>
         </MenuItem>
         <MenuItem
           onClick={onClick}
-          data-to={`/members/${memberId}/edit/profileImg`}
+          data-to={`/members/${memberId}/settings/profileImg`}
         >
-          <MenuContent>Change Profile Image</MenuContent>
+          <MenuContent>Change Password</MenuContent>
           <MenuRightArrowIcon src="https://cdn-icons-png.flaticon.com/512/271/271228.png"></MenuRightArrowIcon>
         </MenuItem>
       </MenuList>

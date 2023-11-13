@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import CommentItem from "./comment-item";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchReplys } from "../store/commentsSlice";
-import fetchComments from "../apis/fetch-comments";
+import { fetchReplys } from "../../store/commentsSlice";
+import fetchComments from "../../apis/fetch-comments";
 
 export default function CommentList({ waffleId }) {
   const dispatch = useDispatch();

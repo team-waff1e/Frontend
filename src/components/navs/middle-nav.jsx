@@ -1,5 +1,10 @@
 import { useCallback, useRef } from "react";
-import { Btn, BtnContainer, BtnDeco, Wrapper } from "./middle-nav-form";
+import {
+  Btn,
+  BtnContainer,
+  BtnDeco,
+  Wrapper,
+} from "../../assets/styles/middle-nav-form";
 
 export default function MiddleNav({ btns, type, args }) {
   // 버튼 선택 로직

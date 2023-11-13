@@ -11,12 +11,12 @@ import {
   ProfileImg,
   TypeBtn,
   Wrapper,
-} from "./create-post-form";
-import addPost from "../apis/add-post";
+} from "../../assets/styles/create-post-form";
+import addPost from "../../apis/add-post";
 import { useDispatch, useSelector } from "react-redux";
-import { addWaffle, editWaffle } from "../store/wafflesSlice";
+import { addWaffle, editWaffle } from "../../store/wafflesSlice";
 import { useNavigate } from "react-router-dom";
-import editPost from "../apis/edit-post";
+import editPost from "../../apis/edit-post";
 
 // **상의 후 할건지 결정할 것들
 // image 버튼 눌러서 이미지 업로드 가능하도록 구현

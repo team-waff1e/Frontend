@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
-import SideNav from "../components/side-nav";
 import styled from "styled-components";
+import SideNav from "../components/navs/side-nav";
 
 const Wrapper = styled.div`
   display: grid;

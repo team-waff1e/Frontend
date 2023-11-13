@@ -1,8 +1,8 @@
 import WaffleItem from "./waffle-item";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWaffles } from "../store/wafflesSlice";
-import fetchPosts from "../apis/fetch-posts";
+import { fetchWaffles } from "../../store/wafflesSlice";
+import fetchPosts from "../../apis/fetch-posts";
 
 // WaffleItem map 함수로 인자 보내서 화면 구성하기
 // 서버에서 받아온 정보 토대로 ~25개 정도 화면에 띄워주기

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CreatePost from "../components/create-post";
-import WaffleList from "../components/waffle-list";
+import CreatePost from "../components/waffles/create-post";
+import WaffleList from "../components/waffles/waffle-list";
 
 const Wrapper = styled.div`
   grid-column: 2/3;

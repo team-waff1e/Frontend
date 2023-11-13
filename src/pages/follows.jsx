@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import MiddleNav from "../components/middle-nav";
 import { useEffect, useState } from "react";
-import FollowList from "../components/follow-list";
 import { useLocation, useParams } from "react-router-dom";
+import MiddleNav from "../components/navs/middle-nav";
+import FollowList from "../components/members/follow-list";
 
 const Wrapper = styled.div`
   height: 100%;

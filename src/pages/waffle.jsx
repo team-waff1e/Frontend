@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
-import WaffleDetail from "../components/waffle-detail";
-import CreateComment from "../components/create-comment";
 import styled from "styled-components";
-import CommentList from "../components/comment-list";
+import WaffleDetail from "../components/waffles/waffle-detail";
+import CreateComment from "../components/comments/create-comment";
+import CommentList from "../components/comments/comment-list";
 
 const Wrapper = styled.div`
   grid-column: 2/3;

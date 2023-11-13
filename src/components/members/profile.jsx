@@ -12,7 +12,7 @@ import {
   StyledLink,
   UserInfo,
   Wrapper,
-} from "./profile-form";
+} from "../../assets/styles/profile-form";
 
 export default function Profile({ memberId }) {
   // 본인이 아닌 경우 edit btn 제거 혹은 follow 버튼으로 대체
@@ -24,7 +24,7 @@ export default function Profile({ memberId }) {
       <UserInfo>
         <Header>
           <ProfileImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaMLq7qLjd3tJE_MxbQzSk5BGng5SXecU82AVzphYuloDHl-cVyTYOiLiGRwDF9jZ1Fig&usqp=CAU" />
-          <EditBtn to={`/members/${memberId}/edit`}>Edit profile</EditBtn>
+          <EditBtn to={`/members/${memberId}/settings`}>Edit profile</EditBtn>
         </Header>
         <Nickname>"Nickname"</Nickname>
         <Name>&#64;"Name"</Name>

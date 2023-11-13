@@ -5,7 +5,7 @@ import {
   CommentForm,
   ProfileImg,
   Wrapper,
-} from "./create-comment-form";
+} from "../../assets/styles/create-comment-form";
 
 export default function CreateComment({ waffleId }) {
   const [content, setContent] = useState("");
@@ -32,7 +32,7 @@ export default function CreateComment({ waffleId }) {
           placeholder="Post your reply"
           required
         ></Comment>
-        <CommentBtn type="submit">Reply</CommentBtn>
+        <CommentBtn type="button">Reply</CommentBtn>
       </CommentForm>
     </Wrapper>
   );

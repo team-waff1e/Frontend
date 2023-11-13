@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import CreatePost from "../components/create-post";
 import { useParams } from "react-router-dom";
+import CreatePost from "../components/waffles/create-post";
 
 const Wrapper = styled.div`
   margin: 10px 0px;

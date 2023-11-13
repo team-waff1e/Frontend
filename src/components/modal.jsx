@@ -7,7 +7,7 @@ import {
   TextSection,
   BtnSection,
   Window,
-} from "./modal-form";
+} from "../assets/styles/modal-form";
 import { useDispatch } from "react-redux";
 import { setIsClicked } from "../store/homeClickSlice";
 import deletePost from "../apis/delete-post";

@@ -1,4 +1,8 @@
-import { Container, SideNavBtn, Wrapper } from "./side-nav-form";
+import {
+  Container,
+  SideNavBtn,
+  Wrapper,
+} from "../../assets/styles/side-nav-form";
 import { useSelector } from "react-redux";
 
 // 각 버튼에 맞는 페이지 만들기 => 추가 페이지, 라우팅 수정 필요, 회의 후 실제 만들 페이지 선정

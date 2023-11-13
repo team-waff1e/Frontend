@@ -1,8 +1,8 @@
 import axios from "axios";
-import { POST_URL } from "../apis/urls";
+import { POST_URL } from "../../apis/urls";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectWaffle } from "../store/wafflesSlice";
+import { selectWaffle } from "../../store/wafflesSlice";
 import {
   Author,
   Contents,
@@ -18,15 +18,15 @@ import {
   ToggleBox,
   ToggleItem,
   Wrapper,
-} from "./waffle-detail-form";
+} from "../../assets/styles/waffle-detail-form";
 import {
   Nickname,
   PostDate,
   FooterItem,
   FooterIcon,
   FooterInfo,
-} from "./waffle-item-form";
-import Modal from "./modal";
+} from "../../assets/styles/waffle-item-form";
+import Modal from "../modal";
 import { useNavigate } from "react-router-dom";
 
 export default function WaffleDetail({ waffleId }) {

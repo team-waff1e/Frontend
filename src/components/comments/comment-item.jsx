@@ -1,6 +1,19 @@
-import { Header, Wrapper, Contents } from "./comment-item-form";
-import { MenuBtn, ProfileImg, Text } from "./waffle-detail-form";
-import { Author, Nickname, PostDate, Title } from "./waffle-item-form";
+import {
+  Header,
+  Wrapper,
+  Contents,
+} from "../../assets/styles/comment-item-form";
+import {
+  MenuBtn,
+  ProfileImg,
+  Text,
+} from "../../assets/styles/waffle-detail-form";
+import {
+  Author,
+  Nickname,
+  PostDate,
+  Title,
+} from "../../assets/styles/waffle-item-form";
 
 export default function CommentItem({
   // 아직 없는 props

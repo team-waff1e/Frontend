@@ -8,12 +8,12 @@ import {
   ErrorMsg,
   Valid,
   Invalid,
-} from "../components/signup-form";
+} from "../assets/styles/signup-form";
 import { Link } from "react-router-dom";
 import AddMember from "../apis/add-member";
 import { debounce } from "lodash";
-import Modal from "../components/modal";
 import CheckDup from "../apis/check-dup";
+import Modal from "../components/modal";
 
 export default function Signup() {
   // Debounce 메세지 상태 관리

@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   margin: 10px 0px;
 `;
 
-export default function MemberEdit() {
+export default function SettingMain() {
   return (
     <Wrapper>
       <Outlet />

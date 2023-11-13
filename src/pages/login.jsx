@@ -5,7 +5,7 @@ import {
   Form,
   Input,
   Switcher,
-} from "../components/signup-form";
+} from "../assets/styles/signup-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import LoginReq from "../apis/login-req";

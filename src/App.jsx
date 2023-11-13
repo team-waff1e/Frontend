@@ -1,25 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import styled, { createGlobalStyle } from "styled-components";
+import { Provider } from "react-redux";
 import Home from "./pages/home";
 import Waffles from "./pages/waffles";
 import Waffle from "./pages/waffle";
 import Follows from "./pages/follows";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import styled, { createGlobalStyle } from "styled-components";
-import { Provider } from "react-redux";
 import store from "./store/store";
-import ProtectedRoute from "./components/protected-route";
-import Layout from "./components/layout";
 import Member from "./pages/member";
 import WaffleMain from "./pages/waffle-main";
 import MemberMain from "./pages/member-main";
-import WaffleList from "./components/waffle-list";
 import WaffleEdit from "./pages/waffle-edit";
-import MemberEdit from "./pages/member-edit";
-import MemberEditBasicInfo from "./components/member-edit-basic-info";
-import ProtectedRoutePrincipal from "./components/protected-route-principal";
-import MemberEditProfileImg from "./components/member-edit-profile-img";
-import MemberEditNav from "./components/member-edit-nav";
+import Layout from "./components/layout";
+import ProtectedRoute from "./components/protections/protected-route";
+import ProtectedRoutePrincipal from "./components/protections/protected-route-principal";
+import WaffleList from "./components/waffles/waffle-list";
+import SettingMain from "./pages/setting-main";
+import SettingNav from "./components/navs/setting-nav";
+import MemberEdit from "./components/settings/member-edit-basic-info";
 
 const router = createBrowserRouter([
   {
@@ -83,25 +82,42 @@ const router = createBrowserRouter([
             element: <Follows />,
           },
           {
-            path: "/members/:memberId/edit",
-            element: (
-              <ProtectedRoutePrincipal>
-                <MemberEdit />
-              </ProtectedRoutePrincipal>
-            ),
+            path: "/members/:memberId/settings",
+            element: <SettingMain />,
             children: [
               {
                 path: "",
-                element: <MemberEditNav />,
+                element: <SettingNav />,
               },
               {
                 // 비밀번호 확인 로직 방법1. 프로텍션 라우트 씌우기(비밀번호 일치한 경우 children으로 컴포넌트 교체)
-                path: "/members/:memberId/edit/basicInfo",
-                element: <MemberEditBasicInfo />,
+                path: "/members/:memberId/settings/basicInfo",
+                element: (
+                  <ProtectedRoutePrincipal>
+                    <MemberEdit
+                      title="Change Your Information"
+                      profileImg={true}
+                      tags={["name", "nickname"]}
+                    />
+                  </ProtectedRoutePrincipal>
+                ),
               },
               {
-                path: "/members/:memberId/edit/profileImg",
-                element: <MemberEditProfileImg />,
+                path: "/members/:memberId/settings/profileImg",
+                element: (
+                  <ProtectedRoutePrincipal>
+                    <MemberEdit
+                      title="Change Your Password"
+                      profileImg={false}
+                      tags={[
+                        "current password",
+                        "password",
+                        "password confirm",
+                      ]}
+                    />
+                    ,
+                  </ProtectedRoutePrincipal>
+                ),
               },
             ],
           },
