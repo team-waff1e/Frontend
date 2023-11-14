@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { POST_URL } from "../apis/urls";
 
 const commentsSlice = createSlice({
   name: "commentsSlice",
@@ -24,7 +26,15 @@ const commentsSlice = createSlice({
   },
   reducers: {
     fetchReplys: (state, action) => {
-      state.comments = action.payload;
+      axios({
+        url: POST_URL + `/${action.payload.waffleId}/comments`,
+        method: "get",
+      }).then((response) => {
+        if (response.errorCode === 200) {
+          state.comments = response.CommentResponseDTO;
+        }
+        return response.errorCode;
+      });
     },
     addReply: (state, action) => {
       state.comments.push(action.payload);

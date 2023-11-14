@@ -31,9 +31,9 @@ export default function Modal({
   const onClick = async (e) => {
     const { name } = e.target;
     if (name === "btn1") {
-      navigate(link1);
-      if (link1 === "/") {
-        dispatch(setIsClicked(false));
+      if (method === "create-post") {
+        args.closeModal();
+        return;
       }
       if (method === "deleteWaffle") {
         console.log(waffleId);
@@ -45,6 +45,11 @@ export default function Modal({
         } else if (errorCode !== 204) {
           console.log(errorCode, "editing error :", errorMsg);
         }
+      }
+
+      navigate(link1);
+      if (link1 === "/") {
+        dispatch(setIsClicked(false));
       }
     } else if (name === "btn2") {
       navigate(link2);

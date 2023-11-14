@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { POST_URL } from "../apis/urls";
 
 const wafflesSlice = createSlice({
   name: "wafflesSlice",
@@ -28,19 +30,54 @@ const wafflesSlice = createSlice({
     fetchWaffles: (state, action) => {
       state.posts = action.payload;
     },
-    addWaffle: (state, action) => {
-      state.posts.push(action.payload);
+    fetchWaffle: (state, action) => {
+      axios({
+        url: POST_URL + `/${action.payload.waffleId}`,
+        method: "get",
+      }).then((response) => {
+        if (response.errorCode === 200) {
+          state.selectedPost = response.WaffleResponseDTO;
+        }
+        return response.errorCode;
+      });
     },
-    selectWaffle: (state, action) => {
-      state.selectedPost = action.payload;
+    addWaffle: (state, action) => {
+      axios({
+        url: POST_URL,
+        method: "post",
+        data: action.payload,
+      })
+        .then((response) => {
+          if (response.errorCode === 201) {
+            state.posts.push(action.payload);
+          }
+          return response.errorCode;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     editWaffle: (state, action) => {
-      state.selectedPost.content = action.payload.content;
-      for (const post of state.posts) {
-        if (post.postId === action.payload.waffleId) {
-          post.content = action.payload.content;
-        }
-      }
+      const content = action.payload.content;
+      axios({
+        url: POST_URL + `/${action.payload.waffleId}`,
+        method: "patch",
+        data: { content },
+      })
+        .then((response) => {
+          if (response.errorCode === 200) {
+            state.selectedPost.content = action.payload.content;
+            for (const post of state.posts) {
+              if (post.postId === action.payload.waffleId) {
+                post.content = action.payload.content;
+              }
+            }
+          }
+          return response.errorCode;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     deleteWaffle: (state, action) => {
       for (const post of state.posts) {
@@ -61,8 +98,8 @@ const wafflesSlice = createSlice({
 export default wafflesSlice;
 export const {
   fetchWaffles,
+  fetchWaffle,
   addWaffle,
-  selectWaffle,
   editWaffle,
   deleteWaffle,
 } = wafflesSlice.actions;

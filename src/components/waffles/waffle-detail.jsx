@@ -1,8 +1,6 @@
-import axios from "axios";
-import { POST_URL } from "../../apis/urls";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectWaffle } from "../../store/wafflesSlice";
+import { fetchWaffle } from "../../store/wafflesSlice";
 import {
   Author,
   Contents,
@@ -73,18 +71,14 @@ export default function WaffleDetail({ waffleId }) {
     [waffleId, navigate]
   );
 
+  // 단일 게시물 조회 및 저장
   useEffect(() => {
-    const getWaffle = async () => {
-      const response = await axios.get(POST_URL + `/${waffleId}`);
-      const { errorCode } = response.data;
-      if (errorCode === 200) {
-        const { instance } = response.data;
-        dispatch(selectWaffle(instance));
-      } else if (errorCode !== 200) {
-        console.log(errorCode);
-      }
-    };
-    getWaffle();
+    const errorCode = dispatch(fetchWaffle({ waffleId }));
+    if (errorCode === 200) {
+      console.log("OK");
+    } else if (errorCode === 400) {
+      console.log(errorCode, "getting error: Bad Request");
+    }
   }, [waffleId, dispatch]);
 
   return (

@@ -21,8 +21,12 @@ export default function CommentItem({
   nickname = "KTaeGyu",
   author = "KTG",
   // 있는 props
+  id,
+  waffleId,
   content,
   createdAt,
+  updatedAt,
+  Member,
 }) {
   // MenuBtn 눌렀을 때 본인이라면 삭제, 수정 버튼/ 타인이라면 follow 버튼 나오게 하는 로직
 

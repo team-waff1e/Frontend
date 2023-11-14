@@ -12,19 +12,12 @@ import {
   TypeBtn,
   Wrapper,
 } from "../../assets/styles/create-post-form";
-import addPost from "../../apis/add-post";
 import { useDispatch, useSelector } from "react-redux";
 import { addWaffle, editWaffle } from "../../store/wafflesSlice";
 import { useNavigate } from "react-router-dom";
-import editPost from "../../apis/edit-post";
+import Modal from "../modal";
 
-// **상의 후 할건지 결정할 것들
-// image 버튼 눌러서 이미지 업로드 가능하도록 구현
-// poll, calendar 버튼 눌렀을 때 입력창 바뀌도록 구현
-// => 현재 <Post /> 컴포넌트 부분인데, redux 상태관리 + 조건문 이용해서 컴포넌트 교체하도록 할 것
-// 공개 범위 기능 구현
-// emoji 버튼 눌러서 토글창 열리도록하고, 이모티콘 열 수 있도록 구현 (트위터 이모지 api 필요)
-export default function CreatePost({ waffleId, type = "" }) {
+export default function CreatePost({ waffleId, type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const selectedPost = useSelector((state) => {
@@ -56,43 +49,75 @@ export default function CreatePost({ waffleId, type = "" }) {
 
   // 프로필 이미지 클릭시 프로필 화면으로 Link 되도록 하기
 
+  // 유효성 검사
+  const [showModal, setShowModal] = useState(false);
+  const [modalMsg, setModalMsg] = useState([]);
+  const isContentEmpty = ({ content }) => {
+    if (content.trim() === "") {
+      setModalMsg(["Content is empty"]);
+      setShowModal(true);
+      return true;
+    }
+    return false;
+  };
+  const isLoggedIn = ({ memberId }) => {
+    if (isNaN(memberId)) {
+      setModalMsg(["You should login first"]);
+      setShowModal(true);
+      return false;
+    }
+    return true;
+  };
+  const closeModal = () => {
+    setShowModal(false);
+    setContent("");
+    setModalMsg([]);
+  };
+
   // Submit 로직
   const postSubmit = async (e) => {
     e.preventDefault();
-    if (content === "" || isNaN(memberId)) return;
+    if (isContentEmpty({ content }) || !isLoggedIn({ memberId })) return;
     try {
       if (type === "post") {
-        const result = await addPost({ memberId, content });
-        const { errorCode, errorMsg } = await result;
+        const errorCode = dispatch(addWaffle({ memberId, content }));
         if (errorCode === 201) {
-          // 성공시
-          console.log("posting succeed");
-          // 변수 초기화 및 와플 목록에 추가
+          console.log("Created");
           setContent("");
-          const { instance } = await result;
-          dispatch(addWaffle(instance));
-        } else if (errorCode !== 201) {
-          console.log(errorCode, "posting error :", errorMsg);
+        } else if (errorCode === 401) {
+          console.log(errorCode, "posting error : you should be logged in");
+        } else if (errorCode === 404) {
+          console.log(errorCode, "posting error : content cannot be null");
         }
       } else if (type === "edit") {
-        const result = await editPost({ waffleId, memberId, content });
-        const { errorCode, errorMsg } = await result;
+        const errorCode = dispatch(editWaffle({ waffleId, memberId, content }));
         if (errorCode === 200) {
-          // 성공시
-          console.log("editing succeed");
-          dispatch(editWaffle({ waffleId, content }));
           setContent("");
           navigate(`/waffles/${waffleId}`);
-        } else if (errorCode !== 200) {
-          console.log(errorCode, "editing error :", errorMsg);
+        } else if (errorCode === 401) {
+          console.log(
+            errorCode,
+            "editting error : you cannot edit others post"
+          );
+        } else if (errorCode === 404) {
+          console.log(errorCode, "editting error : content cannot be null");
         }
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <Wrapper>
+      {showModal ? (
+        <Modal
+          texts={modalMsg}
+          isBtn2={false}
+          method="create-post"
+          args={{ closeModal }}
+        />
+      ) : null}
       <Profile>
         <ProfileImg src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaMLq7qLjd3tJE_MxbQzSk5BGng5SXecU82AVzphYuloDHl-cVyTYOiLiGRwDF9jZ1Fig&usqp=CAU" />
       </Profile>
@@ -103,7 +128,6 @@ export default function CreatePost({ waffleId, type = "" }) {
           value={content}
           maxLength={1000}
           placeholder="What is happening?"
-          required
         />
         <Access>
           <AccessText type="button">🌐Everyone can reply</AccessText>
