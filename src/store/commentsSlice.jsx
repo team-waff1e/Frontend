@@ -43,13 +43,18 @@ const commentsSlice = createSlice({
       state.selectedComment = action.payload;
     },
     editReply: (state, action) => {
-      // 댓글 수정
+      //댓글 수정
+      state.selectedComment = action.payload;
     },
     deleteReply: (state, action) => {
       // 댓글 삭제
+      state.comments = state.comments.filter(
+        (comment) => comment.commentId !== action.payload.commentId
+      );
+
     },
   },
 });
 
 export default commentsSlice;
-export const { fetchReplys, addReply, selectReply } = commentsSlice.actions;
+export const { fetchReplys, addReply, selectReply, editReply, deleteReply } = commentsSlice.actions;
