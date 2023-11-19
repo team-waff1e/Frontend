@@ -43,15 +43,64 @@ const commentsSlice = createSlice({
       state.selectedComment = action.payload;
     },
     editReply: (state, action) => {
-      //댓글 수정
-      state.selectedComment = action.payload;
+      if (state.selectedComment) {
+        axios({
+          url: POST_URL + `/${state.selectedComment.waffleId}/comments/${state.selectedComment.commentId}`,
+          method: "put",
+          data: {
+            content: action.payload.content,
+            updatedAt: action.payload.updatedAt,
+          },
+        })
+          .then((response) => {
+            if (response.status === 303) {
+              window.location.href = response.headers.location;
+            } else {
+              console.log("Edit comment success");
+            }
+          })
+          .catch((error) => {
+            if (error.response) {
+              if (error.response.status === 401) {
+                console.error("Unauthorized: Invalid Waffle ID");
+              } else if (error.response.status === 402) {
+                console.error("Payment Required: Invalid Comment ID");
+              } else if (error.response.status === 403) {
+                console.error("Forbidden: Blank Content");
+              }
+            } else {
+              console.error("Error editing comment:", error);
+            }
+          });
+      }
     },
     deleteReply: (state, action) => {
-      // 댓글 삭제
-      state.comments = state.comments.filter(
-        (comment) => comment.commentId !== action.payload.commentId
-      );
-
+      axios({
+        url: POST_URL + `/${action.payload.waffleId}/comments/${action.payload.commentId}`,
+        method: "delete",
+      })
+        .then((response) => {
+          if (response.status === 204) {
+            // Success: No Content
+            console.log("Delete comment success");
+          } else {
+            // Handle other success cases if needed
+            console.log("Delete comment success");
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            if (error.response.status === 401) {
+              console.error("Unauthorized: Invalid Waffle ID");
+            } else if (error.response.status === 402) {
+              console.error("Payment Required: Invalid Comment ID");
+            } else if (error.response.status === 403) {
+              console.error("Forbidden: Blank Content");
+            }
+          } else {
+            console.error("Error deleting comment:", error);
+          }
+        });
     },
   },
 });

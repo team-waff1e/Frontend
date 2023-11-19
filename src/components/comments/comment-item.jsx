@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import {
   Header,
   Wrapper,
@@ -15,8 +14,6 @@ import {
   PostDate,
   Title,
 } from "../../assets/styles/waffle-item-form";
-import { editReply, deleteReply } from "../../store/commentsSlice";
-import commentDropdown from "./comment-dropdown";
 
 export default function CommentItem({
   // 아직 없는 props
@@ -31,35 +28,37 @@ export default function CommentItem({
   updatedAt,
   Member,
 }) {
-
-  //comment-dropdown 을 모달 모음으로 옮겨야 하나?
-
-  // MenuBtn 눌렀을 때 본인이라면 삭제, 수정 버튼/ 타인이라면 follow 버튼 나오게 하는 로직
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser);//여기서 currentUser는 현재 로그인한 사용자의 벙보를 담고있는 객체로 볍ㄴ경해줄것
+  const currentUser = useSelector((state) => state.user);
 
-  consst [isMenuBtnClicked, setIsMenuBtnClicked] = useState(false); 
+  // 메뉴 버튼이 클릭되었는지와 댓글이 편집 중인지를 추적하는 상태
+  const [isMenuBtnClicked, setIsMenuBtnClicked] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
+  // 메뉴 버튼을 클릭했을 때의 핸들러
   const handleMenuBtnClick = () => {
     setIsMenuBtnClicked(!isMenuBtnClicked);
-  };  
-  const handleEditBtnClick = () => {
-    // 편집 로직 구현, 예를 들어 플래그 설정이나 편집 모달 열기 등
-    // 필요하면 상태를 업데이트하기 위해 액션을 디스패치
-    dispatch(editReply({ id, waffleId, content, createdAt, updatedAt, Member }));
-
   };
+
+  // 편집 버튼을 클릭했을 때의 핸들러
+  const handleEditBtnClick = () => {
+    // selectReply 액션을 디스패치하여 상태의 선택된 댓글을 업데이트
+    dispatch(selectReply({ id, waffleId, content, createdAt, updatedAt, Member }));
+    setIsEditing(true);
+    setIsMenuBtnClicked(true);
+  };
+
+  // 삭제 버튼을 클릭했을 때의 핸들러
   const handleDeleteBtnClick = () => {
+    // deleteReply 액션을 디스패치하여 댓글을 삭제
     dispatch(deleteReply({ id, waffleId, content, createdAt, updatedAt, Member }));
   };
 
-
-  // 1/ Comment 수정 로직
-  // 버튼 클릭시 현재 comment 창이 수정 창으로 변하는 로직
-
-  // 수정 완료 후 axios 통신 및 comment list 수정 하는 로직
-
-  // 2. Comment 삭제 로직 => axios 통신 및 comment list 에서 삭제 하는 로직
+  // 편집 모드를 취소하는 핸들러
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setIsMenuBtnClicked(false);
+  };
 
   return (
     <Wrapper>
@@ -71,23 +70,42 @@ export default function CommentItem({
           <PostDate>{createdAt}</PostDate>
         </Title>
         <MenuBtn src="https://www.svgrepo.com/show/124304/three-dots.svg" onClick={handleMenuBtnClick} />
+        {/* 메뉴 버튼이 클릭된 경우 추가 옵션을 표시 */}
         {isMenuBtnClicked && (
-          <comment-dropdown>
-            {currentUser.id === Member.id && (
-            <>
-              <button onClick={handleEditBtnClick}>수정</button>
-              <button onClick={handleDeleteBtnClick}>삭제</button>
-            </>
+          <div>
+            {/* 댓글 소유자에게 수정 및 삭제 옵션을 표시 */}
+            {currentUser.id === Member.id && !isEditing && (
+              <>
+                <button onClick={handleEditBtnClick}>수정</button>
+                <button onClick={handleDeleteBtnClick}>삭제</button>
+              </>
             )}
-            {currentUser.id !== Member.id && (
-              <button>팔로우</button>
-            )}
-          </comment-dropdown>
+            {/* 댓글 소유자가 아닌 경우 팔로우 옵션을 표시 */}
+            {currentUser.id !== Member.id && <button>팔로우</button>}
+          </div>
         )}
       </Header>
+
+      {/* 편집 중이 아닌 경우 콘텐츠를 표시. */}
+      {!isEditing && 
       <Contents>
-        <Text>{content}</Text>
-      </Contents>
+      <Text>{content}</Text>
+    </Contents>}
+      {/* 편집 중인 경우 EditComment 컴포넌트를 표시 */}
+      {isEditing && (
+        <EditComment
+          comment={{
+            id,
+            waffleId,
+            content,
+            createdAt,
+            updatedAt,
+            Member,
+          }}
+          onCancel={handleCancelEdit}
+        />
+      )}
+
     </Wrapper>
   );
 }
